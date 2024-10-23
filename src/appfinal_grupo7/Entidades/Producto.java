@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package appfinal_grupo7;
+package appfinal_grupo7.Entidades;
 
 /**
  *
@@ -11,7 +11,6 @@ package appfinal_grupo7;
  */
 public class Producto {
     
-   
     private int codigo;
     private int cantidad;
     private double precio;
@@ -64,6 +63,7 @@ public class Producto {
         return  codigo + " " + cantidad + " " + precio + " " + nombre;
     }
 
+    
     
     
 }

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package appfinal_grupo7;
+package appfinal_grupo7.Entidades;
 
 import java.time.LocalDate;
 
@@ -13,7 +13,7 @@ import java.time.LocalDate;
  */
 public class Reserva {
     
-   
+    
     private int idReserva;
     private int dni;
     private String nombre;

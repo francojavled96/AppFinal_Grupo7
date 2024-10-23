@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package appfinal_grupo7;
+package appfinal_grupo7.Entidades;
 
 /**
  *
@@ -11,7 +11,7 @@ package appfinal_grupo7;
  */
 public class Mesero {
     
-    private int idMesero;
+     private int idMesero;
     private boolean cobradp;
     private boolean registrado;
 

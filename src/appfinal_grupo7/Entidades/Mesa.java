@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package appfinal_grupo7;
+package appfinal_grupo7.Entidades;
 
 /**
  *
  * @author Franquito Ledesma
  */
-public class Mesa {
+    public class Mesa {
     
  
     private int numero;
@@ -69,3 +69,5 @@ public class Mesa {
     
     
 }
+
+

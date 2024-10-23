@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package appfinal_grupo7;
+package appfinal_grupo7.Entidades;
 
 /**
  *
@@ -11,8 +11,7 @@ package appfinal_grupo7;
  */
 public class Pedido {
     
-   
-    private int idPedido;
+      private int idPedido;
     private Producto producto;
 
     public Pedido() {
@@ -42,6 +41,7 @@ public class Pedido {
     public void setProducto(Producto producto) {
         this.producto = producto;
     }
+    
     
     
     
