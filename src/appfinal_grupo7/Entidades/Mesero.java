@@ -11,7 +11,7 @@ package appfinal_grupo7.Entidades;
  */
 public class Mesero {
     
-     private int idMesero;
+    private int idMesero;
     private boolean cobradp;
     private boolean registrado;
 
