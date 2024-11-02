@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package appfinal_grupo7.Entidades;
 
 /**
@@ -11,56 +6,61 @@ package appfinal_grupo7.Entidades;
  */
 public class Mesero {
     
-    private int idMesero;
-    private boolean cobradp;
-    private boolean registrado;
+    private int id_mesero;
+    private String nombre;
+    private String apellido;
+    private boolean estado;
 
     public Mesero() {
-        
     }
 
-    public Mesero(boolean cobradp, boolean registrado) {
-        this.cobradp = cobradp;
-        this.registrado = registrado;
+    public Mesero(String nombre, String apellido, boolean estado) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.estado = estado;
+    }
+
+    public Mesero(int id_mesero, String nombre, String apellido, boolean estado) {
+        this.id_mesero = id_mesero;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.estado = estado;
+    }
+
+    public int getId_mesero() {
+        return id_mesero;
+    }
+
+    public void setId_mesero(int id_mesero) {
+        this.id_mesero = id_mesero;
+    }
+
+    public String getNombre_mesero() {
+        return nombre;
+    }
+
+    public void setNombre_mesero(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getApellido_mesero() {
+        return apellido;
+    }
+
+    public void setApellido_mesero(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
     
-    
-
-    public Mesero(int idMesero, boolean cobradp, boolean registrado) {
-        this.idMesero = idMesero;
-        this.cobradp = cobradp;
-        this.registrado = registrado;
-    }
-
-    public int getIdMesero() {
-        return idMesero;
-    }
-
-    public void setIdMesero(int idMesero) {
-        this.idMesero = idMesero;
-    }
-
-    public boolean isCobradp() {
-        return cobradp;
-    }
-
-    public void setCobradp(boolean cobradp) {
-        this.cobradp = cobradp;
-    }
-
-    public boolean isRegistrado() {
-        return registrado;
-    }
-
-    public void setRegistrado(boolean registrado) {
-        this.registrado = registrado;
-    }
-
     @Override
-    public String toString() {
-        return idMesero + " " + cobradp + " " + registrado ;
+    public String toString(){
+        return "" + id_mesero + " - " + nombre + apellido;
     }
-    
-    
-    
 }

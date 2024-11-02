@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package appfinal_grupo7.Entidades;
 
 /**
@@ -11,30 +6,30 @@ package appfinal_grupo7.Entidades;
  */
     public class Mesa {
     
- 
-    private int numero;
+     private int id_mesa;
     private int capacidad;
-    private Reserva reserva;
+    private int estado;
 
     public Mesa() {
     }
-    
-    
 
-    public Mesa(int numero, int capacidad, Reserva reserva, boolean estado) {
-        this.numero = numero;
+    public Mesa(int capacidad, int estado) {
         this.capacidad = capacidad;
-        this.reserva = reserva;
         this.estado = estado;
     }
-    private boolean estado;
 
-    public int getNumero() {
-        return numero;
+    public Mesa(int id_mesa, int capacidad, int estado) {
+        this.id_mesa = id_mesa;
+        this.capacidad = capacidad;
+        this.estado = estado;
     }
 
-    public void setNumero(int numero) {
-        this.numero = numero;
+    public int getId_mesa() {
+        return id_mesa;
+    }
+
+    public void setId_mesa(int id_mesa) {
+        this.id_mesa = id_mesa;
     }
 
     public int getCapacidad() {
@@ -45,29 +40,16 @@ package appfinal_grupo7.Entidades;
         this.capacidad = capacidad;
     }
 
-    public Reserva getReserva() {
-        return reserva;
-    }
-
-    public void setReserva(Reserva reserva) {
-        this.reserva = reserva;
-    }
-
-    public boolean isEstado() {
+    public int getEstado() {
         return estado;
     }
 
-    public void setEstado(boolean estado) {
+    public void setEstado(int estado) {
         this.estado = estado;
     }
-
+    
     @Override
-    public String toString() {
-        return  numero + " " + capacidad + " " + reserva;
+    public String toString(){
+        return "Mesa n°: " + id_mesa;
     }
-    
-    
-    
 }
-
-

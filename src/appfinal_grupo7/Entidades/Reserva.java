@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package appfinal_grupo7.Entidades;
 
 import java.time.LocalDate;
@@ -14,9 +9,10 @@ import java.time.LocalDate;
 public class Reserva {
     
     
-    private int idReserva;
+    private int id_reserva;
+    private Mesa mesa;    
+    private String nombre_persona;
     private int dni;
-    private String nombre;
     private LocalDate fecha;
     private LocalDate hora;
     private boolean estado;
@@ -24,29 +20,47 @@ public class Reserva {
     public Reserva() {
     }
 
-    public Reserva(int dni, String nombre, LocalDate fecha, LocalDate hora, boolean estado) {
+    public Reserva(Mesa mesa, String nombre_persona, int dni, LocalDate fecha, LocalDate hora, boolean estado) {
+        this.mesa = mesa;
+        this.nombre_persona = nombre_persona;
         this.dni = dni;
-        this.nombre = nombre;
         this.fecha = fecha;
         this.hora = hora;
         this.estado = estado;
     }
 
-    public Reserva(int idReserva, int dni, String nombre, LocalDate fecha, LocalDate hora, boolean estado) {
-        this.idReserva = idReserva;
+    public Reserva(int id_reserva, Mesa mesa, String nombre_persona, int dni, LocalDate fecha, LocalDate hora, boolean estado) {
+        this.id_reserva = id_reserva;
+        this.mesa = mesa;
+        this.nombre_persona = nombre_persona;
         this.dni = dni;
-        this.nombre = nombre;
         this.fecha = fecha;
         this.hora = hora;
         this.estado = estado;
     }
 
-    public int getIdReserva() {
-        return idReserva;
+    public int getId_reserva() {
+        return id_reserva;
     }
 
-    public void setIdReserva(int idReserva) {
-        this.idReserva = idReserva;
+    public void setId_reserva(int id_reserva) {
+        this.id_reserva = id_reserva;
+    }
+
+    public Mesa getMesa() {
+        return mesa;
+    }
+
+    public void setMesa(Mesa mesa) {
+        this.mesa = mesa;
+    }
+
+    public String getNombre_persona() {
+        return nombre_persona;
+    }
+
+    public void setNombre_persona(String nombre_persona) {
+        this.nombre_persona = nombre_persona;
     }
 
     public int getDni() {
@@ -55,14 +69,6 @@ public class Reserva {
 
     public void setDni(int dni) {
         this.dni = dni;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
     }
 
     public LocalDate getFecha() {
@@ -89,6 +95,8 @@ public class Reserva {
         this.estado = estado;
     }
     
-    
-    
+    @Override
+    public String toString(){
+        return "Reserva mesa " + mesa.getId_mesa() + " a nombre de " + nombre_persona;
+    }
 }
