@@ -76,11 +76,10 @@ public class MeseroData {
             int actualizado = ps.executeUpdate();
             
             if (actualizado == 1) {
-               JOptionPane.showMessageDialog(null, "Mesero modificado");
+               JOptionPane.showMessageDialog(null, "Mesero dado de baja");
             }            
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla mesero");
         }        
     }
-    
 }
