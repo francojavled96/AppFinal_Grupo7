@@ -93,7 +93,7 @@ public class MesaData {
                     Mesa mesa = new Mesa();
                     mesa.setId_mesa(rs.getInt("id_mesa"));
                     mesa.setCapacidad(rs.getInt("capacidad"));
-                    mesa.setEstado(rs.getInt("estado")); // Adaptar si `estado` tiene más de dos valores.
+                    mesa.setEstado(rs.getInt("estado")); // Adaptar si estado tiene más de dos valores
                     mesas.add(mesa);
                 }
                 ps.close();
