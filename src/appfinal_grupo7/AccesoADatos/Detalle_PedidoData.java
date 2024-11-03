@@ -1,54 +1,56 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package appfinal_grupo7.AccesoADatos;
 
-import appfinal_grupo7.Entidades.Mesero;
+import appfinal_grupo7.Entidades.Detalle_Pedido;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
  *
- * @author litob
+ * @author bruno
  */
-public class MeseroData {
-    
+public class Detalle_PedidoData {
     
     private Connection con = null;
 
-    public MeseroData() {
+    public Detalle_PedidoData() {
         con = Conexion.getConexion();
     }
     
-    public void guardarMesero(Mesero mesero){
+    public void guardarDetalle(Detalle_PedidoData detalle){
         
-        String sql = "INSERT INTO mesero (id_mesero, nombre, apellido, estado)"
-                + "VALUES(?, ?, ?, ?)";   
+        String sql = "INSERT INTO detalle_pedido (id_detalle, id_producto, cantidad)"
+                + "VALUES(?, ?, ?)";   
         
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setInt(1, mesero.getId_mesero());
-            ps.setString(2, mesero.getNombre_mesero());
-            ps.setString(3, mesero.getApellido_mesero());
-            ps.setBoolean(4, mesero.isEstado());
+            ps.setInt(1, detalle.);
+            ps.setString(2, detalle.getNombre_mesero());
+            ps.setString(3, detalle.getApellido_mesero());
+            ps.setBoolean(4, detalle.isEstado());
             ps.executeUpdate();
             
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
-                mesero.setId_mesero(rs.getInt(1));
+                detalle.setId_detalle(rs.getInt(1));
                 JOptionPane.showMessageDialog(null, "Mesero guardado");
-            }            
+            }
+            
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla mesero");
         }        
     }
     
-    public void modificarMesero(Mesero mesero){
+    public void modificarMesero(Mesero detalle){
         
-        String sql = "UPDATE mesero SET nombre = ?, apellido = ? WHERE id_Mesero = ?";   
+        String sql = "UPDATE mesero set nombre = ?, apellido = ? WHERE id_Mesero = ?";   
         
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -60,24 +62,8 @@ public class MeseroData {
             
             if (actualizado == 1) {
                 JOptionPane.showMessageDialog(null, "Mesero modificado");
-            }            
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla mesero");
-        }        
-    }
-    
-    public void eliminarMesero(int id){
-        
-        String sql = "UPDATE mesero SET estado = 0 WHERE id_Mesero = ?"; 
-        
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, id);
-            int actualizado = ps.executeUpdate();
+            }
             
-            if (actualizado == 1) {
-               JOptionPane.showMessageDialog(null, "Mesero modificado");
-            }            
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla mesero");
         }        
