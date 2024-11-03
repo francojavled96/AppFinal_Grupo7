@@ -32,7 +32,7 @@ public class MesaData {
             try {
                 PreparedStatement ps = con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
                 ps.setInt(1, mesa.getCapacidad());
-                ps.setBoolean(2, mesa.isEstado());
+                ps.setInt(2, mesa.getEstado());
                 ps.executeUpdate();
                 ResultSet rs=ps.getGeneratedKeys();
                 if (rs.next()) {
@@ -52,7 +52,7 @@ public class MesaData {
              try {
                 PreparedStatement ps = con.prepareStatement(sql);                          
                 ps.setInt(1,mesa.getCapacidad());
-                ps.setBoolean(2, mesa.isEstado());
+                ps.setInt(2, mesa.getEstado());
                 ps.setInt(3, mesa.getId_mesa());
                 int exito = ps.executeUpdate();
                 if(exito==1){
