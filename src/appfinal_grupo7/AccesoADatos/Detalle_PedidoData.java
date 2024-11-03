@@ -49,11 +49,12 @@ public class Detalle_PedidoData {
     
     public void modificarDetalle(Detalle_Pedido detalle){
         
-        String sql = "UPDATE detalle_pedido SET cantidad = ?";   
+        String sql = "UPDATE detalle_pedido SET cantidad = ? WHERE id_detalle = ?";   
         
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, detalle.getCantidad());
+            ps.setInt(2, detalle.getId_detalle());
             int actualizado = ps.executeUpdate();
                        
             

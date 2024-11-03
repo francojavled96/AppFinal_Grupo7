@@ -82,4 +82,29 @@ public class MeseroData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla mesero");
         }        
     }
+    
+    public void atenderMesa(){
+        //Le cambia el estado a la mesa a ocupada y crea el pedido
+        //Ver si 1 mesa le cambia el estado al meser, yo haría que atienda hasta 2 mesas
+    }
+    
+    public void cobrarMesa() {
+        //Le cambia el estado a la mesa a libre y cobra el pedido  
+        //Le cambia el estado al mesero a libre
+    }
+    
+    public void crearReserva(){
+        //Crea una reserva
+        //Le cambia el estado a la Mesa a ocupado
+    }
+    
+    public void cancelarReserva(){
+        //Elimina una reserva   
+        //Le cambia el estado a la mesa a libre
+    }
+    
+    public void verGanancias(){
+        //Ve la suma de las ganancias filtrando por fecha
+        //Posiblemente llame métodos de la Clase "PedidoData"
+    }
 }
