@@ -10,6 +10,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -81,10 +83,28 @@ public class MesaData {
         }
         
     }
-        
-        
-        
+        public List<Mesa>  listarMesas(){ //TODAS LAS MESAS
+            String sql = "SELECT * FROM mesa";
+            ArrayList<Mesa> mesas = new ArrayList<>();
+            try {
+                PreparedStatement ps=con.prepareStatement(sql);
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    Mesa mesa = new Mesa();
+                    mesa.setId_mesa(rs.getInt("id_mesa"));
+                    mesa.setCapacidad(rs.getInt("capacidad"));
+                    mesa.setEstado(rs.getInt("estado")); // Adaptar si estado tiene más de dos valores
+                    mesas.add(mesa);
+                }
+                ps.close();
+            } catch (SQLException ex) {
+                System.out.println("Error al intentar acceder a la tabla mesa");
+            }
+            return mesas;
+            
         }
+        
+}
         
         
         
