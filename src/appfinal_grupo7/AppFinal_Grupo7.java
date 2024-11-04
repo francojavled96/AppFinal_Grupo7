@@ -33,7 +33,7 @@ public class AppFinal_Grupo7 {
         Mesa mesa = new Mesa(6, 1);       
         Mesero pepe = new Mesero(6,"Juan", "Perez", true); 
         Detalle_Pedido detallin = new Detalle_Pedido(perro, 7);
-        Pedido pedido1 = new Pedido(detallin, mesa, pepe, 1, LocalDate.EPOCH);
+       // Pedido pedido1 = new Pedido(detallin, mesa, pepe, 1, LocalDate.EPOCH);
         
         MesaData mesa2 = new MesaData();
         //mesa2.guardarMesa(mesa);
