@@ -5,12 +5,10 @@
  */
 package appfinal_grupo7.AccesoADatos;
 
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
-
 
 
 public class Conexion {
@@ -28,22 +26,17 @@ public class Conexion {
         if (connection == null) {
             try {
                 Class.forName("org.mariadb.jdbc.Driver");
-                connection = DriverManager.getConnection(URL+BD,USUARIO,PASSWORD);
-                
+                connection = DriverManager.getConnection(URL+BD,USUARIO,PASSWORD);                
                 //JOptionPane.showMessageDialog(null,"Conectado");
                 
             } catch (ClassNotFoundException ex) {
-                JOptionPane.showMessageDialog(null, "Error al cargar los drivers");
+                JOptionPane.showMessageDialog(null, "Error al cargar los drivers: " + ex.getMessage());
             } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Error al conectarse a la base de datos");
-                System.out.println(ex.getMessage());
-                System.out.println("Codigo de error " + ex.getErrorCode());
+                JOptionPane.showMessageDialog(null, "Error al conectarse a la base de datos: " + ex.getMessage());
+                //System.out.println(ex.getMessage());
+                //System.out.println("Codigo de error " + ex.getErrorCode());
             }
         }
         return connection;
     }
-
 }
-
-    
-

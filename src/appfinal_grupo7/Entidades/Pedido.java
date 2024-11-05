@@ -1,9 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package appfinal_grupo7.Entidades;
+
+import java.time.LocalDate;
 
 /**
  *
@@ -11,38 +8,83 @@ package appfinal_grupo7.Entidades;
  */
 public class Pedido {
     
-      private int idPedido;
-    private Producto producto;
+    private int id_pedido;
+    private Detalle_Pedido detalle_pedido;
+    private Mesa mesa;
+    private Mesero mesero;
+    private int estado; //según la consigna son 3 estados, evaluaría hacerlo con 2
+    private LocalDate fecha;
 
     public Pedido() {
     }
 
-    public Pedido(Producto producto) {
-        this.producto = producto;
+    public Pedido(Detalle_Pedido detalle_pedido, Mesa mesa, Mesero mesero, int estado, LocalDate fecha) {
+        this.detalle_pedido = detalle_pedido;
+        this.mesa = mesa;
+        this.mesero = mesero;
+        this.estado = estado;
+        this.fecha = fecha;
     }
 
-    public Pedido(int idPedido, Producto producto) {
-        this.idPedido = idPedido;
-        this.producto = producto;
+    public Pedido(int id_pedido, Detalle_Pedido detalle_pedido, Mesa mesa, Mesero mesero, int estado, LocalDate fecha) {
+        this.id_pedido = id_pedido;
+        this.detalle_pedido = detalle_pedido;
+        this.mesa = mesa;
+        this.mesero = mesero;
+        this.estado = estado;
+        this.fecha = fecha;
     }
 
-    public int getIdPedido() {
-        return idPedido;
+    public int getId_pedido() {
+        return id_pedido;
     }
 
-    public void setIdPedido(int idPedido) {
-        this.idPedido = idPedido;
+    public void setId_pedido(int id_pedido) {
+        this.id_pedido = id_pedido;
     }
 
-    public Producto getProducto() {
-        return producto;
+    public Detalle_Pedido getDetalle_pedido() {
+        return detalle_pedido;
     }
 
-    public void setProducto(Producto producto) {
-        this.producto = producto;
+    public void setDetalle_pedido(Detalle_Pedido detalle_pedido) {
+        this.detalle_pedido = detalle_pedido;
+    }
+
+    public Mesa getMesa() {
+        return mesa;
+    }
+
+    public void setMesa(Mesa mesa) {
+        this.mesa = mesa;
+    }
+
+    public Mesero getMesero() {
+        return mesero;
+    }
+
+    public void setMesero(Mesero mesero) {
+        this.mesero = mesero;
+    }
+
+    public int getEstado() {
+        return estado;
+    }
+
+    public void setEstado(int estado) {
+        this.estado = estado;
+    }
+
+    public LocalDate getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(LocalDate fecha) {
+        this.fecha = fecha;
     }
     
-    
-    
-    
+    @Override
+    public String toString(){
+        return "Pedido " + id_pedido + " , mesa " + mesa.getId_mesa();
+    }    
 }
