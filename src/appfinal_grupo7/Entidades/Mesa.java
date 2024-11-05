@@ -6,7 +6,7 @@ package appfinal_grupo7.Entidades;
  */
     public class Mesa {
     
-     private int id_mesa;
+    private int id_mesa;
     private int capacidad;
     private int estado;
 
