@@ -9,6 +9,7 @@ import appfinal_grupo7.AccesoADatos.Detalle_PedidoData;
 import appfinal_grupo7.AccesoADatos.MesaData;
 import appfinal_grupo7.AccesoADatos.MeseroData;
 import appfinal_grupo7.AccesoADatos.PedidoData;
+import appfinal_grupo7.AccesoADatos.ProductoData;
 import appfinal_grupo7.Entidades.Detalle_Pedido;
 import appfinal_grupo7.Entidades.Mesa;
 import appfinal_grupo7.Entidades.Mesero;
@@ -29,24 +30,26 @@ public class AppFinal_Grupo7 {
      */
     public static void main(String[] args) throws SQLException {
         
-        Producto perro = new Producto("Perro", 5000.50);
-        Mesa mesa = new Mesa(6, 1);       
-        Mesero pepe = new Mesero(6,"Juan", "Perez", true); 
-        Detalle_Pedido detallin = new Detalle_Pedido(perro, 7);
-       // Pedido pedido1 = new Pedido(detallin, mesa, pepe, 1, LocalDate.EPOCH);
+        Producto gato = new Producto("Gato", 5000.50);
+        ProductoData prod = new ProductoData();
+        prod.guardarProducto(gato);
         
+        Mesa mesa = new Mesa(6, 1);    
         MesaData mesa2 = new MesaData();
-        //mesa2.guardarMesa(mesa);
-        mesa2.eliimnarMesa(14);
+        mesa2.guardarMesa(mesa);
+        //mesa2.eliimnarMesa(14);
         
+        Mesero pepe = new Mesero(6,"Juan", "Perez", true); 
         MeseroData mesero2 = new MeseroData();
-        //mesero2.guardarMesero(pepe); 
-        mesero2.eliminarMesero(6);
-                
-        //Detalle_PedidoData detallin2 = new Detalle_PedidoData();
-        //detallin2.guardarDetalle(detallin);        
+        mesero2.guardarMesero(pepe); 
+        //mesero2.eliminarMesero(6);
         
-        //PedidoData pedido2 = new PedidoData();
-        //pedido2.guardarPedido(pedido1);        
+        Detalle_Pedido detallin = new Detalle_Pedido(gato, 7);
+        Detalle_PedidoData detallin2 = new Detalle_PedidoData();
+        detallin2.guardarDetalle(detallin);
+        
+        Pedido pedido1 = new Pedido(detallin, mesa, pepe, 1, LocalDate.EPOCH);
+        PedidoData pedido2 = new PedidoData();
+        pedido2.guardarPedido(pedido1);        
     }
 }
