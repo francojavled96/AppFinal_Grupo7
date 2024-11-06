@@ -24,7 +24,7 @@ public class ProductoData {
     con = Conexion.getConexion();
     }
     public void guardarProducto(Producto producto){
-        String sql = "INSERT INTO producto (nombre, precio) VALUES (?, ?)";
+        String sql = "INSERT INTO producto (nombre, precio_unitario) VALUES (?, ?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
              ps.setString(1, producto.getNombre());
@@ -42,7 +42,7 @@ public class ProductoData {
     }
     
     public void modificarProducto(Producto producto){
-        String sql = "UPDATE producto SET nombre = ?, precio = ? WHERE id_producto = ?";
+        String sql = "UPDATE producto SET nombre = ?, precio_unitario = ? WHERE id_producto = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1,producto.getNombre());
