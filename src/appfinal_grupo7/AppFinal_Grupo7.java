@@ -34,7 +34,7 @@ public class AppFinal_Grupo7 {
         ProductoData prod = new ProductoData();
         prod.guardarProducto(gato);
         
-        Mesa mesa = new Mesa(6, 1);    
+        Mesa mesa = new Mesa(6, 66, 1);    
         MesaData mesa2 = new MesaData();
         mesa2.guardarMesa(mesa);
         //mesa2.eliimnarMesa(14);
