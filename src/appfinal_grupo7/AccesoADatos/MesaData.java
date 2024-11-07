@@ -28,13 +28,14 @@ public class MesaData {
         }
     
         public void guardarMesa(Mesa mesa){
-             String sql = "INSERT INTO mesa(capacidad, estado)"
-                + "VALUES (?,?)";
+             String sql = "INSERT INTO mesa(capacidad, numero, estado)"
+                + "VALUES (?,?,?)";
              
             try {
                 PreparedStatement ps = con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
                 ps.setInt(1, mesa.getCapacidad());
-                ps.setInt(2, mesa.getEstado());
+                ps.setInt(2, mesa.getNumero());
+                ps.setInt(3, mesa.getEstado());
                 ps.executeUpdate();
                 ResultSet rs=ps.getGeneratedKeys();
                 if (rs.next()) {
@@ -45,17 +46,16 @@ public class MesaData {
             } catch (SQLException ex) {
                  System.out.println("Error no se pudo cargar la mesa ");
             }
-        
-        
         }
         public void modificarMesa(Mesa mesa){
-             String sql = "UPDATE mesa SET capacidad = ?, estado = ? WHERE id_mesa = ?";
+             String sql = "UPDATE mesa SET capacidad = ?, numero = ?, estado = ? WHERE id_mesa = ?";
             
              try {
                 PreparedStatement ps = con.prepareStatement(sql);                          
                 ps.setInt(1,mesa.getCapacidad());
-                ps.setInt(2, mesa.getEstado());
-                ps.setInt(3, mesa.getId_mesa());
+                ps.setInt(2,mesa.getCapacidad());
+                ps.setInt(3, mesa.getEstado());
+                ps.setInt(4, mesa.getId_mesa());
                 int exito = ps.executeUpdate();
                 if(exito==1){
                     System.out.println("Mesa actualizada ");
@@ -64,11 +64,9 @@ public class MesaData {
             } catch (SQLException ex) {
                  System.out.println("Error no se pudo actualizar la mesa");
             }
-    
-    
         }
         
-        public void eliimnarMesa(int id_mesa){ //ELIMINACION LOGICA 
+        public void eliminarMesa(int id_mesa){ //ELIMINACION LOGICA 
             String sql = "UPDATE mesa SET estado = 0 WHERE id_mesa = ?";
         try {
             PreparedStatement ps=con.prepareStatement(sql);
@@ -93,6 +91,7 @@ public class MesaData {
                     Mesa mesa = new Mesa();
                     mesa.setId_mesa(rs.getInt("id_mesa"));
                     mesa.setCapacidad(rs.getInt("capacidad"));
+                    mesa.setNumero(rs.getInt("numero"));
                     mesa.setEstado(rs.getInt("estado")); // Adaptar si estado tiene más de dos valores
                     mesas.add(mesa);
                 }
@@ -100,12 +99,6 @@ public class MesaData {
             } catch (SQLException ex) {
                 System.out.println("Error al intentar acceder a la tabla mesa");
             }
-            return mesas;
-            
-        }
-        
+            return mesas;            
+        }        
 }
-        
-        
-        
-
