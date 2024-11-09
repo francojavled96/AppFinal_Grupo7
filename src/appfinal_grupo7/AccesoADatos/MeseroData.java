@@ -83,6 +83,72 @@ public class MeseroData {
         }        
     }
     
+    public Mesero buscarMeseroPorID(int id){
+    String sql = "SELECT nombre, apelldio, estado FROM mesero WHERE id_mesero = ?";
+    Mesero mesero = null;
+    try {
+        PreparedStatement ps=con.prepareStatement(sql);
+        ps.setInt(1, id);
+        ResultSet rs=ps.executeQuery();
+        if(rs.next()){
+            mesero=new Mesero();
+            mesero.setId_mesero(id);
+            mesero.setNombre_mesero(rs.getString("nombre"));
+            mesero.setApellido_mesero(rs.getString("apellido"));
+            mesero.setEstado(true);
+        }else{
+            JOptionPane.showMessageDialog(null, "La mesa indicada no existe");
+        }
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al accedera a la tabla mesa");
+    }    
+    return mesero;
+    }
+    
+    public Mesero buscarMeseroOcupadoPorID(int id){
+    String sql = "SELECT nombre, apelldio, estado FROM mesero WHERE id_mesero = ?";
+    Mesero mesero = null;
+    try {
+        PreparedStatement ps=con.prepareStatement(sql);
+        ps.setInt(1, id);
+        ResultSet rs=ps.executeQuery();
+        if(rs.next()){
+            mesero=new Mesero();
+            mesero.setId_mesero(id);
+            mesero.setNombre_mesero(rs.getString("nombre"));
+            mesero.setApellido_mesero(rs.getString("apellido"));
+            mesero.setEstado(true);
+        }else{
+            JOptionPane.showMessageDialog(null, "La mesa indicada no existe");
+        }
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al accedera a la tabla mesa");
+    }    
+    return mesero;
+    }
+    
+    public Mesero buscarMeseroLibrePorID(int id){
+    String sql = "SELECT nombre, apelldio, estado FROM mesero WHERE id_mesero = ?";
+    Mesero mesero = null;
+    try {
+        PreparedStatement ps=con.prepareStatement(sql);
+        ps.setInt(1, id);
+        ResultSet rs=ps.executeQuery();
+        if(rs.next()){
+            mesero=new Mesero();
+            mesero.setId_mesero(id);
+            mesero.setNombre_mesero(rs.getString("nombre"));
+            mesero.setApellido_mesero(rs.getString("apellido"));
+            mesero.setEstado(true);
+        }else{
+            JOptionPane.showMessageDialog(null, "La mesa indicada no existe");
+        }
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al accedera a la tabla mesa");
+    }    
+    return mesero;
+    }
+    
     public void atenderMesa(){
         //Le cambia el estado a la mesa a ocupada y crea el pedido
         //Ver si 1 mesa le cambia el estado al meser, yo haría que atienda hasta 2 mesas

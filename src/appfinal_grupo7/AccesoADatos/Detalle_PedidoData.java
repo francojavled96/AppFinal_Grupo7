@@ -1,6 +1,7 @@
 package appfinal_grupo7.AccesoADatos;
 
 import appfinal_grupo7.Entidades.Detalle_Pedido;
+import appfinal_grupo7.Entidades.Pedido;
 import appfinal_grupo7.Entidades.Producto;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,9 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import javax.swing.JOptionPane;
 
 /**
@@ -20,21 +19,21 @@ import javax.swing.JOptionPane;
 public class Detalle_PedidoData {
     
     private Connection con = null;
-    private Map<Producto, Integer> pedido;
+    private PedidoData pedido = new PedidoData();
 
     public Detalle_PedidoData() {        
         con = Conexion.getConexion();
-        this.pedido = new HashMap<>();
     }
     
     public void guardarDetalle(Detalle_Pedido detalle){
         
-        String sql = "INSERT INTO detalle_pedido (id_producto, cantidad)"
+        String sql = "INSERT INTO detalle_pedido (id_producto, id_pedido, cantidad)"
                 + "VALUES(?, ?)";           
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, detalle.getProducto().getId_producto());
-            ps.setInt(2, detalle.getCantidad());
+            ps.setInt(2, detalle.getPedido().getId_pedido());
+            ps.setInt(3, detalle.getCantidad());
             ps.executeUpdate();
             
             ResultSet rs = ps.getGeneratedKeys();
@@ -94,6 +93,7 @@ public class Detalle_PedidoData {
             while(rs.next()){
                 Detalle_Pedido detalle = new Detalle_Pedido();
                     detalle.setId_detalle(rs.getInt("id_producto"));
+                    Pedido pedi = pedido.buscarPedidoPorID(rs.getInt("id_pedido"));
                     detalle.setCantidad(rs.getInt("cantidad"));
             lista.add(detalle);
             }

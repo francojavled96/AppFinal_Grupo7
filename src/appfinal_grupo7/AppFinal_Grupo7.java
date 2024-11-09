@@ -30,42 +30,43 @@ public class AppFinal_Grupo7 {
      */
     public static void main(String[] args) throws SQLException {
         
+        //Creo 3 productos
         Producto p1 = new Producto("Producto1", 5.50);
         Producto p2 = new Producto("Producto2", 5.50);
         Producto p3 = new Producto("Producto3", 5.50);
 
+        //Guardo en BD
         ProductoData prod = new ProductoData();
         prod.guardarProducto(p1);
         prod.guardarProducto(p2);
         prod.guardarProducto(p3);
         
+        //Creo 1 mesa y la guardo en BD
         Mesa mesa = new Mesa(99, 10, 1);    
         MesaData mesa2 = new MesaData();
         mesa2.guardarMesa(mesa);
         //mesa2.eliimnarMesa(14);
         
+        //Creo 1 mesero y lo guardo en BD
         Mesero mozo = new Mesero(9,"Buen", "Mozo", true); 
         MeseroData mozaso = new MeseroData();
         mozaso.guardarMesero(mozo); 
         //mesero2.eliminarMesero(6);
         
-        Detalle_Pedido detalle1 = new Detalle_Pedido(p1, 7);
-        Detalle_Pedido detalle2 = new Detalle_Pedido(p2, 5);
-        Detalle_Pedido detalle3 = new Detalle_Pedido(p3, 1);
+        //Creo 1 pedido, le asigno su mesa y mesero
+        Pedido pedido1 = new Pedido(mesa, mozo, 0, LocalDate.EPOCH);
+        PedidoData pedidaso = new PedidoData();
+        pedidaso.guardarPedido(pedido1);
+        
+        //Creo 3 detalles, le asigno su pedido y los guardo en la BD
+        Detalle_Pedido detalle1 = new Detalle_Pedido(p1, pedido1, 7);
+        Detalle_Pedido detalle2 = new Detalle_Pedido(p2, pedido1, 5);
+        Detalle_Pedido detalle3 = new Detalle_Pedido(p3, pedido1, 1);
         Detalle_PedidoData detallaso = new Detalle_PedidoData();
         detallaso.guardarDetalle(detalle1);
         detallaso.guardarDetalle(detalle2);
         detallaso.guardarDetalle(detalle3);
-        detallaso.listarDetalle();
-
-        
-        Pedido pedido1 = new Pedido(detalle1, mesa, mozo, 1, LocalDate.EPOCH);
-        Pedido pedido2 = new Pedido(detalle2, mesa, mozo, 1, LocalDate.EPOCH);
-        Pedido pedido3 = new Pedido(detalle3, mesa, mozo, 1, LocalDate.EPOCH);
-        PedidoData pedidaso = new PedidoData();
-        pedidaso.guardarPedido(pedido1);
-        pedidaso.guardarPedido(pedido2);
-        pedidaso.guardarPedido(pedido3);
+        detallaso.listarDetalle();        
         
     }
 }

@@ -9,7 +9,6 @@ import java.time.LocalDate;
 public class Pedido {
     
     private int id_pedido;
-    private Detalle_Pedido detalle_pedido;
     private Mesa mesa;
     private Mesero mesero;
     private int estado; //según la consigna son 3 estados, evaluaría hacerlo con 2
@@ -18,17 +17,15 @@ public class Pedido {
     public Pedido() {
     }
 
-    public Pedido(Detalle_Pedido detalle_pedido, Mesa mesa, Mesero mesero, int estado, LocalDate fecha) {
-        this.detalle_pedido = detalle_pedido;
+    public Pedido(Mesa mesa, Mesero mesero, int estado, LocalDate fecha) {
         this.mesa = mesa;
         this.mesero = mesero;
         this.estado = estado;
         this.fecha = fecha;
     }
 
-    public Pedido(int id_pedido, Detalle_Pedido detalle_pedido, Mesa mesa, Mesero mesero, int estado, LocalDate fecha) {
+    public Pedido(int id_pedido, Mesa mesa, Mesero mesero, int estado, LocalDate fecha) {
         this.id_pedido = id_pedido;
-        this.detalle_pedido = detalle_pedido;
         this.mesa = mesa;
         this.mesero = mesero;
         this.estado = estado;
@@ -41,14 +38,6 @@ public class Pedido {
 
     public void setId_pedido(int id_pedido) {
         this.id_pedido = id_pedido;
-    }
-
-    public Detalle_Pedido getDetalle_pedido() {
-        return detalle_pedido;
-    }
-
-    public void setDetalle_pedido(Detalle_Pedido detalle_pedido) {
-        this.detalle_pedido = detalle_pedido;
     }
 
     public Mesa getMesa() {
