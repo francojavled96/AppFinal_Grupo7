@@ -9,18 +9,18 @@ package appfinal_grupo7.Entidades;
     private int id_mesa;
     private int numero;
     private int capacidad;
-    private int estado;
+    private boolean estado;
 
     public Mesa() {
     }
 
-    public Mesa(int numero, int capacidad, int estado) {
+    public Mesa(int numero, int capacidad, boolean estado) {
         this.numero = numero;
         this.capacidad = capacidad;
         this.estado = estado;
     }
 
-    public Mesa(int id_mesa, int numero, int capacidad, int estado) {
+    public Mesa(int id_mesa, int numero, int capacidad, boolean estado) {
         this.id_mesa = id_mesa;
         this.numero = numero;
         this.capacidad = capacidad;
@@ -51,11 +51,11 @@ package appfinal_grupo7.Entidades;
         this.capacidad = capacidad;
     }
 
-    public int getEstado() {
+    public boolean getEstado() {
         return estado;
     }
 
-    public void setEstado(int estado) {
+    public void setEstado(boolean estado) {
         this.estado = estado;
     }
 

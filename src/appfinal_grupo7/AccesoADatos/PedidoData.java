@@ -102,7 +102,7 @@ public class PedidoData {
                 pedido.setEstado(rs.getInt("estado"));
                 pedido.setFecha(rs.getDate("fecha").toLocalDate());                
             }else{
-                JOptionPane.showMessageDialog(null, "No eiste el alumno ese ");
+                JOptionPane.showMessageDialog(null, "No existe el alumno ese ");
             }                
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al accedera a la tabla alumno");

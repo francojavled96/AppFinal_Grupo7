@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -84,7 +86,7 @@ public class MeseroData {
     }
     
     public Mesero buscarMeseroPorID(int id){
-    String sql = "SELECT nombre, apelldio, estado FROM mesero WHERE id_mesero = ?";
+    String sql = "SELECT nombre, apellido, estado FROM mesero WHERE id_mesero = ?";
     Mesero mesero = null;
     try {
         PreparedStatement ps=con.prepareStatement(sql);
@@ -105,49 +107,72 @@ public class MeseroData {
     return mesero;
     }
     
-    public Mesero buscarMeseroOcupadoPorID(int id){
-    String sql = "SELECT nombre, apelldio, estado FROM mesero WHERE id_mesero = ?";
-    Mesero mesero = null;
-    try {
-        PreparedStatement ps=con.prepareStatement(sql);
-        ps.setInt(1, id);
-        ResultSet rs=ps.executeQuery();
-        if(rs.next()){
-            mesero=new Mesero();
-            mesero.setId_mesero(id);
-            mesero.setNombre_mesero(rs.getString("nombre"));
-            mesero.setApellido_mesero(rs.getString("apellido"));
-            mesero.setEstado(true);
-        }else{
-            JOptionPane.showMessageDialog(null, "La mesa indicada no existe");
-        }
-    } catch (SQLException ex) {
-        JOptionPane.showMessageDialog(null, "Error al accedera a la tabla mesa");
-    }    
-    return mesero;
+    public List<Mesero> listarMeserosLibres(){
+        String sql = "SELECT id_mesero, nombre, apellido FROM mesero WHERE estado = 0";
+        ArrayList<Mesero> meseros = new ArrayList<>();
+        Mesero mesero;
+        try {
+            PreparedStatement ps=con.prepareStatement(sql);
+            ResultSet rs=ps.executeQuery();
+            if(rs.next()){
+                mesero=new Mesero();
+                mesero.setId_mesero(rs.getInt("id_mesero"));
+                mesero.setNombre_mesero(rs.getString("nombre"));
+                mesero.setApellido_mesero(rs.getString("apellido"));
+                mesero.setEstado(false);
+                
+                meseros.add(mesero);
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a a la lista de meseros libres");
+        }    
+        return meseros;
     }
     
-    public Mesero buscarMeseroLibrePorID(int id){
-    String sql = "SELECT nombre, apelldio, estado FROM mesero WHERE id_mesero = ?";
-    Mesero mesero = null;
-    try {
-        PreparedStatement ps=con.prepareStatement(sql);
-        ps.setInt(1, id);
-        ResultSet rs=ps.executeQuery();
-        if(rs.next()){
-            mesero=new Mesero();
-            mesero.setId_mesero(id);
-            mesero.setNombre_mesero(rs.getString("nombre"));
-            mesero.setApellido_mesero(rs.getString("apellido"));
-            mesero.setEstado(true);
-        }else{
-            JOptionPane.showMessageDialog(null, "La mesa indicada no existe");
-        }
-    } catch (SQLException ex) {
-        JOptionPane.showMessageDialog(null, "Error al accedera a la tabla mesa");
-    }    
-    return mesero;
+    public List<Mesero> listarMeserosOcupados(){
+        String sql = "SELECT id_mesero, nombre, apellido FROM mesero WHERE estado = 1";
+        ArrayList<Mesero> meseros = new ArrayList<>();
+        Mesero mesero;
+        try {
+            PreparedStatement ps=con.prepareStatement(sql);
+            ResultSet rs=ps.executeQuery();
+            if(rs.next()){
+                mesero=new Mesero();
+                mesero.setId_mesero(rs.getInt("id_mesero"));
+                mesero.setNombre_mesero(rs.getString("nombre"));
+                mesero.setApellido_mesero(rs.getString("apellido"));
+                mesero.setEstado(true);
+                
+                meseros.add(mesero);
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a a la lista de meseros libres");
+        }    
+        return meseros;
     }
+    
+    public List<Mesero> listarMeserosTodos(){
+        String sql = "SELECT id_mesero, nombre, apellido, estado FROM mesero";
+        ArrayList<Mesero> meseros = new ArrayList<>();
+        Mesero mesero;
+        try {
+            PreparedStatement ps=con.prepareStatement(sql);
+            ResultSet rs=ps.executeQuery();
+            if(rs.next()){
+                mesero=new Mesero();
+                mesero.setId_mesero(rs.getInt("id_mesero"));
+                mesero.setNombre_mesero(rs.getString("nombre"));
+                mesero.setApellido_mesero(rs.getString("apellido"));                
+                
+                meseros.add(mesero);
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a a la lista de meseros libres");
+        }    
+        return meseros;
+    }
+    
+    
     
     public void atenderMesa(){
         //Le cambia el estado a la mesa a ocupada y crea el pedido

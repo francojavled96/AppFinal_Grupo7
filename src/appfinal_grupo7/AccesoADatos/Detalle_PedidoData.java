@@ -28,7 +28,7 @@ public class Detalle_PedidoData {
     public void guardarDetalle(Detalle_Pedido detalle){
         
         String sql = "INSERT INTO detalle_pedido (id_producto, id_pedido, cantidad)"
-                + "VALUES(?, ?)";           
+                + "VALUES(?, ?, ?)";           
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, detalle.getProducto().getId_producto());

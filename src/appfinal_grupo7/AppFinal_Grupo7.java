@@ -42,7 +42,7 @@ public class AppFinal_Grupo7 {
         prod.guardarProducto(p3);
         
         //Creo 1 mesa y la guardo en BD
-        Mesa mesa = new Mesa(99, 10, 1);    
+        Mesa mesa = new Mesa(99, 10, true);    
         MesaData mesa2 = new MesaData();
         mesa2.guardarMesa(mesa);
         //mesa2.eliimnarMesa(14);
