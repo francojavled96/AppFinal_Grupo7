@@ -93,6 +93,27 @@ public class ProductoData {
         return productos;
     }
     
+    public Producto buscarProductoPorID(int id){
+        String sql = "SELECT nombre, precio_unitario FROM producto WHERE id_producto = ?";
+        Producto producto = null;
+        try {
+            PreparedStatement ps=con.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs=ps.executeQuery();
+            if(rs.next()){
+                producto=new Producto();
+                producto.setId_producto(id);
+                producto.setNombre(rs.getString("nombre"));
+                producto.setPrecio_unitario(rs.getInt("precio_unitario"));
+            }else{
+                JOptionPane.showMessageDialog(null, "El producto indicado no existe");
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al accedera a la tabla producto");
+        }    
+        return producto;
+    }
+    
     
 //    public Producto buscarProductoPorId(int idProducto){
 //    

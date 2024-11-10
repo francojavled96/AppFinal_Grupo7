@@ -88,7 +88,7 @@ public class PedidoData {
     }
     
     public Pedido buscarPedidoPorID(int id){
-        String sql = "SELECT id_mesa, id_mesero, estado ,fecha FROM pedido WHERE id_pedido = ?";
+        String sql = "SELECT id_mesa, id_mesero, estado FROM pedido WHERE id_pedido = ?";
         Pedido pedido = null;
         try {
             PreparedStatement ps=con.prepareStatement(sql);
@@ -100,12 +100,11 @@ public class PedidoData {
                 Mesa mesa1 = mesa.buscarMesaPorID(rs.getInt("id_mesa"));
                 Mesero mesero1 = mesero.buscarMeseroPorID(rs.getInt("id_mesero"));
                 pedido.setEstado(rs.getInt("estado"));
-                pedido.setFecha(rs.getDate("fecha").toLocalDate());                
             }else{
-                JOptionPane.showMessageDialog(null, "No existe el alumno ese ");
+                JOptionPane.showMessageDialog(null, "No existe el pedido indicado ");
             }                
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al accedera a la tabla alumno");
+            JOptionPane.showMessageDialog(null, "Error al accedera a la tabla pedido");
         }
        return pedido;
     }

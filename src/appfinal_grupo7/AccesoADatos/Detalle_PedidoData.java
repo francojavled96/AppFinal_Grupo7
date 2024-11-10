@@ -20,6 +20,9 @@ public class Detalle_PedidoData {
     
     private Connection con = null;
     private PedidoData pedido = new PedidoData();
+    private MesaData mesa = new MesaData();
+    private MeseroData mesero = new MeseroData();
+    private ProductoData producto = new ProductoData();
 
     public Detalle_PedidoData() {        
         con = Conexion.getConexion();
@@ -102,5 +105,27 @@ public class Detalle_PedidoData {
         JOptionPane.showMessageDialog(null, "Error al listar el detalle del pedido");
         }
           return lista;
+    }
+    
+    public Detalle_Pedido buscarDetallePorID(int id){
+        String sql = "SELECT id_producto, id_pedido ,cantidad FROM detalle_pedido WHERE id_detalle = ?";
+        Detalle_Pedido detalle = null;
+        try {
+            PreparedStatement ps=con.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs=ps.executeQuery();
+            if(rs.next()){
+                detalle=new Detalle_Pedido();
+                detalle.setId_detalle(id);
+                Producto prod = producto.buscarProductoPorID(rs.getInt("id_producto"));
+                Pedido pe = pedido.buscarPedidoPorID(rs.getInt("id_pedido"));
+                detalle.setCantidad(rs.getInt("cantidad"));
+            }else{
+                JOptionPane.showMessageDialog(null, "No existe el detalle indicado ");
+            }                
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al accedera a la tabla detalle_pedido");
+        }
+       return detalle;
     }
 }

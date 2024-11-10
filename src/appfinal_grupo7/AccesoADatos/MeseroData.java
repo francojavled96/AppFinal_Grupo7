@@ -172,6 +172,39 @@ public class MeseroData {
         return meseros;
     }
     
+    public void cambiarAOcupado(int id){
+        
+        String sql = "UPDATE mesero SET estado = 1 WHERE id_Mesero = ?"; 
+        
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            int actualizado = ps.executeUpdate();
+            
+            if (actualizado == 1) {
+               JOptionPane.showMessageDialog(null, "Mesero ocupado");
+            }            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla mesero");
+        }        
+    }
+    
+    public void cambiarALibre(int id){
+        
+        String sql = "UPDATE mesero SET estado = 0 WHERE id_Mesero = ?"; 
+        
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            int actualizado = ps.executeUpdate();
+            
+            if (actualizado == 1) {
+               JOptionPane.showMessageDialog(null, "Mesero liberado");
+            }            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla mesero");
+        }        
+    }    
     
     
     public void atenderMesa(){

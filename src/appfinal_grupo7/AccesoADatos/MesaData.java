@@ -166,4 +166,36 @@ public class MesaData {
         }    
         return mesas;
     }
+    
+    public void cambiarAOcupada(int id){
+         String sql = "UPDATE mesa SET estado = 1 WHERE id_mesa = ?"; 
+        
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            int actualizado = ps.executeUpdate();
+            
+            if (actualizado == 1) {
+               JOptionPane.showMessageDialog(null, "Mesa ocupada");
+            }            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla mesa");
+        }        
+    }
+    
+    public void cambiarALibre(int id){
+         String sql = "UPDATE mesa SET estado = 0 WHERE id_mesa = ?"; 
+        
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            int actualizado = ps.executeUpdate();
+            
+            if (actualizado == 1) {
+               JOptionPane.showMessageDialog(null, "Mesa liberada");
+            }            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla mesa");
+        }        
+    }
 }
