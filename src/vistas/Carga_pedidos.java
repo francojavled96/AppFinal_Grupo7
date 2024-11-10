@@ -114,6 +114,11 @@ public class Carga_pedidos extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(jTable_Pedido);
 
         jButton_Limpiar.setText("Limpiar");
+        jButton_Limpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_LimpiarActionPerformed(evt);
+            }
+        });
 
         jButton_Cargar_detalle.setText("Cargar detalle");
         jButton_Cargar_detalle.setEnabled(false);
@@ -273,10 +278,10 @@ public class Carga_pedidos extends javax.swing.JInternalFrame {
                     Detalle_Pedido detalle= new Detalle_Pedido(producto, pedido, cantidad);
                     detallaso.guardarDetalle(detalle);
                     jButton_Cargar_detalle.setEnabled(false);
-                    jButton_CrearPedido.setEnabled(true);
-                    
+                    jButton_CrearPedido.setEnabled(true);                                        
                 }
             }
+        limpiarCampos();
     }//GEN-LAST:event_jButton_Cargar_detalleActionPerformed
 
     private void jButton_CrearPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_CrearPedidoActionPerformed
@@ -306,11 +311,18 @@ public class Carga_pedidos extends javax.swing.JInternalFrame {
 
     private void jButton_SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_SalirActionPerformed
         // TODO add your handling code here:
+        dispose();
     }//GEN-LAST:event_jButton_SalirActionPerformed
 
     private void jComboBox_MesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox_MesaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox_MesaActionPerformed
+
+    private void jButton_LimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_LimpiarActionPerformed
+        // TODO add your handling code here:
+        modelo.setRowCount(0);
+        cargarTabla();
+    }//GEN-LAST:event_jButton_LimpiarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -364,4 +376,10 @@ public class Carga_pedidos extends javax.swing.JInternalFrame {
             modelo.addRow(new Object[] {produ.getId_producto(), produ.getNombre(), produ.getPrecio_unitario()});
         }
     }
+    
+    private void limpiarCampos(){
+        jTextField_PedidoNumero.setText("");
+        modelo.setRowCount(0);
+        cargarTabla();
+    } 
 }
