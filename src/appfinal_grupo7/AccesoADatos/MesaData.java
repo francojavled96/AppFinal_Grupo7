@@ -35,7 +35,7 @@ public class MesaData {
             PreparedStatement ps = con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, mesa.getCapacidad());
             ps.setInt(2, mesa.getNumero());
-            ps.setBoolean(3, mesa.getEstado());
+            ps.setBoolean(3, mesa.isEstado());
             ps.executeUpdate();
             ResultSet rs=ps.getGeneratedKeys();
             if (rs.next()) {
@@ -54,7 +54,7 @@ public class MesaData {
             PreparedStatement ps = con.prepareStatement(sql);                          
             ps.setInt(1,mesa.getCapacidad());
             ps.setInt(2,mesa.getCapacidad());
-            ps.setBoolean(3, mesa.getEstado());
+            ps.setBoolean(3, mesa.isEstado());
             ps.setInt(4, mesa.getId_mesa());
             int exito = ps.executeUpdate();
             if(exito==1){
@@ -110,7 +110,7 @@ public class MesaData {
         try {
             PreparedStatement ps=con.prepareStatement(sql);
             ResultSet rs=ps.executeQuery();
-            if(rs.next()){
+            while(rs.next()){
                 mesa=new Mesa();
                 mesa.setId_mesa(rs.getInt("id_mesa"));
                 mesa.setNumero(rs.getInt("numero"));
@@ -132,13 +132,12 @@ public class MesaData {
         try {
             PreparedStatement ps=con.prepareStatement(sql);
             ResultSet rs=ps.executeQuery();
-            if(rs.next()){
+            while(rs.next()){
                 mesa=new Mesa();
                 mesa.setId_mesa(rs.getInt("id_mesa"));
                 mesa.setNumero(rs.getInt("numero"));
                 mesa.setCapacidad(rs.getInt("capacidad"));
-                mesa.setEstado(true);
-                
+                mesa.setEstado(true);                
                 mesas.add(mesa);
             }
         } catch (SQLException ex) {
@@ -148,17 +147,17 @@ public class MesaData {
     }
     
     public List<Mesa> listarMesasTodas(){
-        String sql = "SELECT id_mesa, numero, capacidad FROM mesa";
+        String sql = "SELECT id_mesa, numero, capacidad, estado FROM mesa";
         ArrayList<Mesa> mesas = new ArrayList<>();
-        Mesa mesa;
         try {
             PreparedStatement ps=con.prepareStatement(sql);
             ResultSet rs=ps.executeQuery();
-            if(rs.next()){
-                mesa=new Mesa();
+            while(rs.next()){
+                Mesa mesa=new Mesa();
                 mesa.setId_mesa(rs.getInt("id_mesa"));
                 mesa.setNumero(rs.getInt("numero"));
                 mesa.setCapacidad(rs.getInt("capacidad"));
+                mesa.setEstado(true);
                 
                 mesas.add(mesa);
             }

@@ -30,6 +30,8 @@ public class AppFinal_Grupo7 {
      */
     public static void main(String[] args) throws SQLException {
         
+        /*
+        
         //Creo 3 productos
         Producto p1 = new Producto("Producto1", 5.50);
         Producto p2 = new Producto("Producto2", 5.50);
@@ -66,7 +68,12 @@ public class AppFinal_Grupo7 {
         detallaso.guardarDetalle(detalle1);
         detallaso.guardarDetalle(detalle2);
         detallaso.guardarDetalle(detalle3);
-        detallaso.listarDetalle();        
+        detallaso.listarDetalle();   
+        */
         
+        MesaData mesa2 = new MesaData();
+        System.out.println(mesa2.listarMesasOcupadas());    
+        System.out.println(mesa2.listarMesasLibres());
+        System.out.println(mesa2.listarMesasTodas());
     }
 }

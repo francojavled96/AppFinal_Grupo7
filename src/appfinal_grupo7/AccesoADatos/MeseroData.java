@@ -114,7 +114,7 @@ public class MeseroData {
         try {
             PreparedStatement ps=con.prepareStatement(sql);
             ResultSet rs=ps.executeQuery();
-            if(rs.next()){
+            while(rs.next()){
                 mesero=new Mesero();
                 mesero.setId_mesero(rs.getInt("id_mesero"));
                 mesero.setNombre_mesero(rs.getString("nombre"));
@@ -136,7 +136,7 @@ public class MeseroData {
         try {
             PreparedStatement ps=con.prepareStatement(sql);
             ResultSet rs=ps.executeQuery();
-            if(rs.next()){
+            while(rs.next()){
                 mesero=new Mesero();
                 mesero.setId_mesero(rs.getInt("id_mesero"));
                 mesero.setNombre_mesero(rs.getString("nombre"));
@@ -158,7 +158,7 @@ public class MeseroData {
         try {
             PreparedStatement ps=con.prepareStatement(sql);
             ResultSet rs=ps.executeQuery();
-            if(rs.next()){
+            while(rs.next()){
                 mesero=new Mesero();
                 mesero.setId_mesero(rs.getInt("id_mesero"));
                 mesero.setNombre_mesero(rs.getString("nombre"));

@@ -26,34 +26,87 @@ public class Menu_principal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jDesktopPane1 = new javax.swing.JDesktopPane();
+        escritorio = new javax.swing.JDesktopPane();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu_Pedidos = new javax.swing.JMenu();
+        jMenuItem_CrearPedi = new javax.swing.JMenuItem();
+        jMenuItem_CobrarPedi = new javax.swing.JMenuItem();
+        jMenu_Reservas = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
-        jDesktopPane1.setLayout(jDesktopPane1Layout);
-        jDesktopPane1Layout.setHorizontalGroup(
-            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout escritorioLayout = new javax.swing.GroupLayout(escritorio);
+        escritorio.setLayout(escritorioLayout);
+        escritorioLayout.setHorizontalGroup(
+            escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 400, Short.MAX_VALUE)
         );
-        jDesktopPane1Layout.setVerticalGroup(
-            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+        escritorioLayout.setVerticalGroup(
+            escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
+
+        jMenu_Pedidos.setText("Pedidos");
+        jMenu_Pedidos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu_PedidosActionPerformed(evt);
+            }
+        });
+
+        jMenuItem_CrearPedi.setText("Crear/eliminar pedido");
+        jMenuItem_CrearPedi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem_CrearPediActionPerformed(evt);
+            }
+        });
+        jMenu_Pedidos.add(jMenuItem_CrearPedi);
+
+        jMenuItem_CobrarPedi.setText("Cobrar pedido");
+        jMenuItem_CobrarPedi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem_CobrarPediActionPerformed(evt);
+            }
+        });
+        jMenu_Pedidos.add(jMenuItem_CobrarPedi);
+
+        jMenuBar1.add(jMenu_Pedidos);
+
+        jMenu_Reservas.setText("Reservas");
+        jMenuBar1.add(jMenu_Reservas);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPane1)
+            .addComponent(escritorio)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPane1)
+            .addComponent(escritorio)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jMenu_PedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu_PedidosActionPerformed
+        // TODO add your handling code here:
+              
+    }//GEN-LAST:event_jMenu_PedidosActionPerformed
+
+    private void jMenuItem_CrearPediActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_CrearPediActionPerformed
+        // TODO add your handling code here:
+        escritorio.removeAll();
+        escritorio.repaint();
+        Carga_pedidos pedidos = new Carga_pedidos();
+        pedidos.setVisible(true);
+        escritorio.add(pedidos);  
+    }//GEN-LAST:event_jMenuItem_CrearPediActionPerformed
+
+    private void jMenuItem_CobrarPediActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_CobrarPediActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem_CobrarPediActionPerformed
 
     /**
      * @param args the command line arguments
@@ -91,6 +144,11 @@ public class Menu_principal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JDesktopPane jDesktopPane1;
+    private javax.swing.JDesktopPane escritorio;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem_CobrarPedi;
+    private javax.swing.JMenuItem jMenuItem_CrearPedi;
+    private javax.swing.JMenu jMenu_Pedidos;
+    private javax.swing.JMenu jMenu_Reservas;
     // End of variables declaration//GEN-END:variables
 }

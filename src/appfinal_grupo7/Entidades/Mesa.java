@@ -51,7 +51,7 @@ package appfinal_grupo7.Entidades;
         this.capacidad = capacidad;
     }
 
-    public boolean getEstado() {
+    public boolean isEstado() {
         return estado;
     }
 
@@ -61,8 +61,9 @@ package appfinal_grupo7.Entidades;
 
     
     
+    
     @Override
     public String toString(){
-        return "Mesa n°: " + id_mesa;
+        return "Mesa n°: " + numero;
     }
 }

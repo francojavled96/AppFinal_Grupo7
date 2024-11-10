@@ -10,6 +10,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -50,15 +52,9 @@ public class ProductoData {
             ps.setInt(3, producto.getId_producto());
             ps.executeUpdate();
             System.out.println("Producto modificado correctamente");
-            
-
-             
-            
         } catch (SQLException ex) {
             System.out.println("Error al modificar producto");
         }
-   
-    
     
     }
     
@@ -76,6 +72,28 @@ public class ProductoData {
         }
     
     }
+    
+    public ArrayList<Producto> listarProductos(){
+        String sql = "SELECT id_producto, nombre, precio_unitario FROM producto";
+        ArrayList<Producto> productos = new ArrayList<>();
+        try {
+            PreparedStatement ps=con.prepareStatement(sql);
+            ResultSet rs=ps.executeQuery();
+            while(rs.next()){
+                Producto producto=new Producto();
+                producto.setId_producto(rs.getInt("id_producto"));
+                producto.setNombre(rs.getString("nombre"));
+                producto.setPrecio_unitario(rs.getDouble("precio_unitario"));
+                
+                productos.add(producto);
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a a la lista de prodcutos");
+        }    
+        return productos;
+    }
+    
+    
 //    public Producto buscarProductoPorId(int idProducto){
 //    
 //    }
