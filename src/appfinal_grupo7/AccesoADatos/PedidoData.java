@@ -108,4 +108,58 @@ public class PedidoData {
         }
        return pedido;
     }
+    
+    public int obtenerMesa(int id){
+        String sql = "SELECT id_mesa FROM pedido WHERE id_pedido = ?";
+        int id_mesa = -1;
+        Pedido pedido = null;
+        try {
+            PreparedStatement ps=con.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs=ps.executeQuery();
+            if(rs.next()){
+                id_mesa = rs.getInt("id_mesa");
+            }else{
+                JOptionPane.showMessageDialog(null, "No existe el pedido indicado ");
+            }                
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al accedera a la tabla pedido");
+        }
+        return id_mesa;
+    } 
+    
+    public int obtenerMesero(int id){
+        String sql = "SELECT id_mesero FROM pedido WHERE id_pedido = ?";
+        int id_mesero = -1;
+        Pedido pedido = null;
+        try {
+            PreparedStatement ps=con.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs=ps.executeQuery();
+            if(rs.next()){
+                id_mesero = rs.getInt("id_mesero");
+            }else{
+                JOptionPane.showMessageDialog(null, "No existe el pedido indicado ");
+            }                
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al accedera a la tabla pedido");
+        }
+        return id_mesero;
+    }    
+    
+    public void liberarPedido(int id){        
+        String sql = "UPDATE estado = 0 WHERE id_pedido = ?";   
+        
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(2, id);
+            int actualizado = ps.executeUpdate();                       
+            
+            if (actualizado == 1) {
+                JOptionPane.showMessageDialog(null, "Estado modificado");
+            }            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla detalle pedido");
+        }        
+    }
 }

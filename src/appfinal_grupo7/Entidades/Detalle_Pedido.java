@@ -14,6 +14,12 @@ public class Detalle_Pedido {
     public Detalle_Pedido() {
     }
 
+    public Detalle_Pedido(int id_detalle, Producto producto, int cantidad) {
+        this.id_detalle = id_detalle;
+        this.producto = producto;
+        this.cantidad = cantidad;
+    }      
+
     public Detalle_Pedido(Producto producto, Pedido pedido, int cantidad) {
         this.producto = producto;
         this.pedido = pedido;
@@ -61,6 +67,6 @@ public class Detalle_Pedido {
     
     @Override
     public String toString(){
-        return "" + producto.getNombre() + cantidad + " unidades";
+        return producto.getNombre() + " "+ cantidad + " unidades";
     }
 }

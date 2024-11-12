@@ -28,10 +28,10 @@ public class Detalle_PedidoData {
         con = Conexion.getConexion();
     }
     
-    public void guardarDetalle(Detalle_Pedido detalle){
-        
+    public void guardarDetalle(Detalle_Pedido detalle){        
         String sql = "INSERT INTO detalle_pedido (id_producto, id_pedido, cantidad)"
-                + "VALUES(?, ?, ?)";           
+        + "VALUES(?, ?, ?)";  
+        
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, detalle.getProducto().getId_producto());
@@ -50,16 +50,14 @@ public class Detalle_PedidoData {
         }        
     }
     
-    public void modificarDetalle(Detalle_Pedido detalle){
-        
+    public void modificarDetalle(Detalle_Pedido detalle){        
         String sql = "UPDATE detalle_pedido SET cantidad = ? WHERE id_detalle = ?";   
         
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, detalle.getCantidad());
             ps.setInt(2, detalle.getId_detalle());
-            int actualizado = ps.executeUpdate();
-                       
+            int actualizado = ps.executeUpdate();                       
             
             if (actualizado == 1) {
                 JOptionPane.showMessageDialog(null, "Detalle modificado");
@@ -69,8 +67,7 @@ public class Detalle_PedidoData {
         }        
     }
     
-    public void eliminarDetalle(int idDetalle){
-        
+    public void eliminarDetalle(int idDetalle){        
         String sql = "UPDATE detalle_pedido SET cantidad = 0 WHERE id_detalle = ?"; 
         
         try {
@@ -87,29 +84,32 @@ public class Detalle_PedidoData {
     }
     
     public List <Detalle_Pedido> listarDetalle(){
-        ArrayList<Detalle_Pedido> lista = new ArrayList<>();        
+        ArrayList<Detalle_Pedido> lista = new ArrayList<>();   
+        Detalle_Pedido detalle;
         String sql = "SELECT * FROM detalle_pedido";
+        
           try (
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs= ps.executeQuery()) {
         {
             while(rs.next()){
-                Detalle_Pedido detalle = new Detalle_Pedido();
-                    detalle.setId_detalle(rs.getInt("id_producto"));
-                    Pedido pedi = pedido.buscarPedidoPorID(rs.getInt("id_pedido"));
-                    detalle.setCantidad(rs.getInt("cantidad"));
+                detalle = new Detalle_Pedido();
+                detalle.setId_detalle(rs.getInt("id_producto"));
+                Pedido pedi = pedido.buscarPedidoPorID(rs.getInt("id_pedido"));
+                detalle.setCantidad(rs.getInt("cantidad"));
             lista.add(detalle);
             }
         }
     }   catch (SQLException ex) {
         JOptionPane.showMessageDialog(null, "Error al listar el detalle del pedido");
         }
-          return lista;
+        return lista;
     }
     
     public Detalle_Pedido buscarDetallePorID(int id){
         String sql = "SELECT id_producto, id_pedido ,cantidad FROM detalle_pedido WHERE id_detalle = ?";
         Detalle_Pedido detalle = null;
+        
         try {
             PreparedStatement ps=con.prepareStatement(sql);
             ps.setInt(1, id);
@@ -119,13 +119,54 @@ public class Detalle_PedidoData {
                 detalle.setId_detalle(id);
                 Producto prod = producto.buscarProductoPorID(rs.getInt("id_producto"));
                 Pedido pe = pedido.buscarPedidoPorID(rs.getInt("id_pedido"));
+                detalle.setProducto(prod);
+                detalle.setPedido(pe);
                 detalle.setCantidad(rs.getInt("cantidad"));
             }else{
-                JOptionPane.showMessageDialog(null, "No existe el detalle indicado ");
+                JOptionPane.showMessageDialog(null, "No se encontró detalle con el ID proporcionado");
             }                
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al accedera a la tabla detalle_pedido");
         }
        return detalle;
+    }
+    
+    //Lista de detalle que comparten un mismo pedido
+    public List <Detalle_Pedido> buscarDetallePorPedido(int id){
+        ArrayList<Detalle_Pedido> lista = new ArrayList<>();
+        String sql = "SELECT id_detalle, id_producto ,cantidad FROM detalle_pedido WHERE id_pedido = ?";
+        Detalle_Pedido detalle = null;
+        
+        try {
+            PreparedStatement ps=con.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs=ps.executeQuery();
+            while(rs.next()){
+                detalle=new Detalle_Pedido();
+                detalle.setId_detalle(rs.getInt("id_detalle"));
+                Producto prod = producto.buscarProductoPorID(rs.getInt("id_producto"));
+                detalle.setProducto(prod);
+                detalle.setCantidad(rs.getInt("cantidad"));
+                
+                lista.add(detalle);
+            }              
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a a la tabla detalle_pedido");
+        }
+        if (lista.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "No se encontró detalle para el pedido proporcionado");
+        }
+        return lista;
+    }
+    
+    //Suma de detalle para el mismo pedido
+    public double calcularTotalDetalle(int id) {
+    double total_pedido = 0.0;    
+    List<Detalle_Pedido> detalles = buscarDetallePorPedido(id);  
+    
+    for (Detalle_Pedido detalle : detalles) {
+        total_pedido += detalle.getProducto().getPrecio_unitario() * detalle.getCantidad();
+    }    
+    return total_pedido;
     }
 }

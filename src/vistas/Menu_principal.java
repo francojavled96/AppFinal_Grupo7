@@ -4,17 +4,21 @@
  */
 package vistas;
 
+import javax.swing.JFrame;
+
 /**
  *
  * @author bruno
  */
 public class Menu_principal extends javax.swing.JFrame {
 
+
     /**
      * Creates new form Menu_principal
      */
     public Menu_principal() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -34,6 +38,8 @@ public class Menu_principal extends javax.swing.JFrame {
         jMenu_Reservas = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(400, 700));
+        setSize(new java.awt.Dimension(450, 650));
 
         javax.swing.GroupLayout escritorioLayout = new javax.swing.GroupLayout(escritorio);
         escritorio.setLayout(escritorioLayout);

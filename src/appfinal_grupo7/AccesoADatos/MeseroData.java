@@ -152,7 +152,7 @@ public class MeseroData {
     }
     
     public List<Mesero> listarMeserosTodos(){
-        String sql = "SELECT id_mesero, nombre, apellido, estado FROM mesero";
+        String sql = "SELECT id_mesero, nombre, apellido, estado FROM mesero" ;
         ArrayList<Mesero> meseros = new ArrayList<>();
         Mesero mesero;
         try {
@@ -212,9 +212,24 @@ public class MeseroData {
         //Ver si 1 mesa le cambia el estado al meser, yo haría que atienda hasta 2 mesas
     }
     
-    public void cobrarMesa() {
-        //Le cambia el estado a la mesa a libre y cobra el pedido  
-        //Le cambia el estado al mesero a libre
+    public double cobrarPedido(int id) {
+        double total;
+        int num_mesa;
+        int num_mesero;
+        
+        MeseroData mesero = new MeseroData();
+        PedidoData pedido = new PedidoData();
+        Detalle_PedidoData detalle = new Detalle_PedidoData();
+        MesaData mesa = new MesaData();
+        
+        total = detalle.calcularTotalDetalle(id); //guarda el total del pedido
+        num_mesa = pedido.obtenerMesa(id);
+        num_mesero = pedido.obtenerMesero(id);
+        mesa.cambiarALibre(num_mesa); //cambia la mesa a libre
+        mesero.cambiarALibre(num_mesero); //cambia mesero a libre  
+        pedido.liberarPedido(id);
+        
+        return total;
     }
     
     public void crearReserva(){

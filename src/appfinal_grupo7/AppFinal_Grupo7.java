@@ -30,7 +30,7 @@ public class AppFinal_Grupo7 {
      */
     public static void main(String[] args) throws SQLException {
         
-        /*
+        
         
         //Creo 3 productos
         Producto p1 = new Producto("Producto1", 5.50);
@@ -69,11 +69,16 @@ public class AppFinal_Grupo7 {
         detallaso.guardarDetalle(detalle2);
         detallaso.guardarDetalle(detalle3);
         detallaso.listarDetalle();   
-        */
+
         
-        MesaData mesa2 = new MesaData();
-        System.out.println(mesa2.listarMesasOcupadas());    
-        System.out.println(mesa2.listarMesasLibres());
-        System.out.println(mesa2.listarMesasTodas());
+        //System.out.println(detalle1.buscarDetallePorID(24));
+        //Obtengo un array con el detalle
+        System.out.println(detallaso.buscarDetallePorPedido(pedido1.getId_pedido()));
+        
+        //Calculo el total del detalle
+        System.out.println(detallaso.calcularTotalDetalle(pedido1.getId_pedido()));
+        
+        //Hago que el mozo cobre, devuelve el monto y cambia los estados de mesa y mozo para ese pedido
+        mozaso.cobrarPedido(pedido1.getId_pedido());
     }
 }
