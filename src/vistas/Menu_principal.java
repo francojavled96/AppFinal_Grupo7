@@ -38,18 +38,17 @@ public class Menu_principal extends javax.swing.JFrame {
         jMenu_Reservas = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(400, 700));
         setSize(new java.awt.Dimension(450, 650));
 
         javax.swing.GroupLayout escritorioLayout = new javax.swing.GroupLayout(escritorio);
         escritorio.setLayout(escritorioLayout);
         escritorioLayout.setHorizontalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 463, Short.MAX_VALUE)
         );
         escritorioLayout.setVerticalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 670, Short.MAX_VALUE)
         );
 
         jMenu_Pedidos.setText("Pedidos");
@@ -59,7 +58,7 @@ public class Menu_principal extends javax.swing.JFrame {
             }
         });
 
-        jMenuItem_CrearPedi.setText("Crear/eliminar pedido");
+        jMenuItem_CrearPedi.setText("Tomar pedido");
         jMenuItem_CrearPedi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem_CrearPediActionPerformed(evt);
@@ -67,7 +66,7 @@ public class Menu_principal extends javax.swing.JFrame {
         });
         jMenu_Pedidos.add(jMenuItem_CrearPedi);
 
-        jMenuItem_CobrarPedi.setText("Cobrar pedido");
+        jMenuItem_CobrarPedi.setText("Cancelar/cobrar pedido");
         jMenuItem_CobrarPedi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem_CobrarPediActionPerformed(evt);
@@ -86,11 +85,15 @@ public class Menu_principal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(escritorio)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(escritorio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(escritorio)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(escritorio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -112,6 +115,11 @@ public class Menu_principal extends javax.swing.JFrame {
 
     private void jMenuItem_CobrarPediActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_CobrarPediActionPerformed
         // TODO add your handling code here:
+        escritorio.removeAll();
+        escritorio.repaint();
+        Modificar_Pedido pedidos = new Modificar_Pedido();
+        pedidos.setVisible(true);
+        escritorio.add(pedidos);  
     }//GEN-LAST:event_jMenuItem_CobrarPediActionPerformed
 
     /**

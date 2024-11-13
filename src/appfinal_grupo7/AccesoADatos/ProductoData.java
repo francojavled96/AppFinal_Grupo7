@@ -104,7 +104,7 @@ public class ProductoData {
                 producto=new Producto();
                 producto.setId_producto(id);
                 producto.setNombre(rs.getString("nombre"));
-                producto.setPrecio_unitario(rs.getInt("precio_unitario"));
+                producto.setPrecio_unitario(rs.getDouble("precio_unitario"));
             }else{
                 JOptionPane.showMessageDialog(null, "El producto indicado no existe");
             }
