@@ -148,18 +148,18 @@ public class PedidoData {
     }    
     
     public void liberarPedido(int id){        
-        String sql = "UPDATE estado = 0 WHERE id_pedido = ?";   
+        String sql = "UPDATE pedido SET estado = 0 WHERE id_pedido = ?";   
         
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(2, id);
+            ps.setInt(1, id);
             int actualizado = ps.executeUpdate();                       
             
             if (actualizado == 1) {
                 JOptionPane.showMessageDialog(null, "Estado modificado");
             }            
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla detalle pedido");
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla pedido");
         }        
     }
 }

@@ -5,15 +5,39 @@
 
 package vistas;
 
+import appfinal_grupo7.AccesoADatos.Detalle_PedidoData;
+import appfinal_grupo7.AccesoADatos.MeseroData;
+import appfinal_grupo7.AccesoADatos.ProductoData;
+import appfinal_grupo7.Entidades.Detalle_Pedido;
+import appfinal_grupo7.Entidades.Producto;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author bruno
  */
 public class Modificar_Pedido extends javax.swing.JInternalFrame {
+    
+    private DefaultTableModel modelo;
+    private ArrayList<Detalle_Pedido> lista_detalle;
+    
+    private Detalle_PedidoData detalle;
+    private MeseroData mesero;
+    private int id_pedido;
+    
+
 
     /** Creates new form Modificar_Pedido */
     public Modificar_Pedido() {
         initComponents();
+        modelo = new DefaultTableModel();
+        detalle = new Detalle_PedidoData();   
+        mesero = new MeseroData();
+        
+        
+        armarTabla();
     }
 
     /** This method is called from within the constructor to
@@ -26,32 +50,224 @@ public class Modificar_Pedido extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
+        jLabel_NumPedido = new javax.swing.JLabel();
+        jTextField_NumPedido = new javax.swing.JTextField();
+        jButton_Buscar = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable_Detalle = new javax.swing.JTable();
+        jTextField_Total = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jButton_Cobrar = new javax.swing.JButton();
+        jButton_Cancelar = new javax.swing.JButton();
+        jButton_Limpiar = new javax.swing.JButton();
+        jButton_Salir = new javax.swing.JButton();
 
-        jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel1.setText("Procesar Pedido");
+
+        jLabel_NumPedido.setText("Introduzca el n° de pedido:");
+
+        jTextField_NumPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField_NumPedidoActionPerformed(evt);
+            }
+        });
+
+        jButton_Buscar.setText("¡Buscar!");
+        jButton_Buscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_BuscarActionPerformed(evt);
+            }
+        });
+
+        jTable_Detalle.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable_Detalle);
+
+        jTextField_Total.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jTextField_Total.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField_TotalActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel2.setText("EL total del pedido es:");
+
+        jLabel3.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel3.setText("¿Que desea hacer?");
+
+        jButton_Cobrar.setText("Cobrar pedido");
+        jButton_Cobrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_CobrarActionPerformed(evt);
+            }
+        });
+
+        jButton_Cancelar.setText("Cancelar pedido");
+
+        jButton_Limpiar.setText("Limpiar");
+
+        jButton_Salir.setText("Salir");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jButton_Salir)
+                                .addComponent(jLabel3)))
+                        .addGap(114, 114, 114))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButton_Cobrar)
+                            .addComponent(jButton_Limpiar))
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton_Cancelar)
+                        .addGap(91, 91, 91))))
             .addGroup(layout.createSequentialGroup()
-                .addGap(147, 147, 147)
-                .addComponent(jLabel1)
-                .addContainerGap(131, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(113, 113, 113)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(32, 32, 32)
+                        .addComponent(jLabel_NumPedido)
+                        .addGap(49, 49, 49)
+                        .addComponent(jTextField_NumPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(167, 167, 167)
+                        .addComponent(jButton_Buscar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(143, 143, 143)
+                        .addComponent(jTextField_Total, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel1)
-                .addGap(0, 255, Short.MAX_VALUE))
+                .addGap(29, 29, 29)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel_NumPedido)
+                    .addComponent(jTextField_NumPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jButton_Buscar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
+                .addComponent(jLabel2)
+                .addGap(18, 18, 18)
+                .addComponent(jTextField_Total, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(53, 53, 53)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton_Cancelar)
+                    .addComponent(jButton_Cobrar))
+                .addGap(58, 58, 58)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton_Limpiar)
+                    .addComponent(jButton_Salir))
+                .addGap(40, 40, 40))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jTextField_NumPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_NumPedidoActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jTextField_NumPedidoActionPerformed
+
+    private void jButton_BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_BuscarActionPerformed
+        // TODO add your handling code here:
+        try {
+            cargarTabla(leerPedido());
+            
+            jTextField_Total.setText("$ " + mostrarTotal() + "");
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Debe ingresar un valor válido");
+        }
+    }//GEN-LAST:event_jButton_BuscarActionPerformed
+
+    private void jTextField_TotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_TotalActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField_TotalActionPerformed
+
+    private void jButton_CobrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_CobrarActionPerformed
+        // TODO add your handling code here:
+        mesero.cobrarPedido(leerPedido());
+    }//GEN-LAST:event_jButton_CobrarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton_Buscar;
+    private javax.swing.JButton jButton_Cancelar;
+    private javax.swing.JButton jButton_Cobrar;
+    private javax.swing.JButton jButton_Limpiar;
+    private javax.swing.JButton jButton_Salir;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel_NumPedido;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable_Detalle;
+    private javax.swing.JTextField jTextField_NumPedido;
+    private javax.swing.JTextField jTextField_Total;
     // End of variables declaration//GEN-END:variables
 
+    private void armarTabla(){
+        ArrayList<Object> cabecera = new ArrayList<>();
+        cabecera.add("ID");
+        cabecera.add("Producto");
+        cabecera.add("Precio");
+        cabecera.add("Cantidad");
+        cabecera.add("Subtotal");
+        
+        for (Object object : cabecera) {
+            modelo.addColumn(object);
+        }
+        jTable_Detalle.setModel(modelo);
+    }
+    
+    private void cargarTabla(int id_pedido){
+        
+        lista_detalle= (ArrayList<Detalle_Pedido>) detalle.buscarDetallePorPedido(id_pedido);
+        
+        for (Detalle_Pedido deta : lista_detalle) {
+            
+            modelo.addRow(new Object[] {deta.getId_detalle(), deta.getProducto().getNombre(), deta.getProducto().getPrecio_unitario(),
+            deta.getCantidad(), deta.getCantidad()*deta.getProducto().getPrecio_unitario()});
+        }
+    }
+    
+    private double mostrarTotal() {
+        return detalle.calcularTotalDetalle(leerPedido());
+    }
+    
+    private int leerPedido(){
+        return id_pedido = Integer.parseInt(jTextField_NumPedido.getText());
+    }
+    
 }
