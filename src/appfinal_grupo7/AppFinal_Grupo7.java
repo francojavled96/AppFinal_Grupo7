@@ -56,29 +56,29 @@ public class AppFinal_Grupo7 {
         //mesero2.eliminarMesero(6);
         
         //Creo 1 pedido, le asigno su mesa y mesero
-        Pedido pedido1 = new Pedido(mesa, mozo, 0, LocalDate.EPOCH);
-        PedidoData pedidaso = new PedidoData();
-        pedidaso.guardarPedido(pedido1);
-        
-        //Creo 3 detalles, le asigno su pedido y los guardo en la BD
-        Detalle_Pedido detalle1 = new Detalle_Pedido(p1, pedido1, 7);
-        Detalle_Pedido detalle2 = new Detalle_Pedido(p2, pedido1, 5);
-        Detalle_Pedido detalle3 = new Detalle_Pedido(p3, pedido1, 1);
-        Detalle_PedidoData detallaso = new Detalle_PedidoData();
-        detallaso.guardarDetalle(detalle1);
-        detallaso.guardarDetalle(detalle2);
-        detallaso.guardarDetalle(detalle3);
-        detallaso.listarDetalle();   
-
-        
-        //System.out.println(detalle1.buscarDetallePorID(24));
-        //Obtengo un array con el detalle
-        System.out.println(detallaso.buscarDetallePorPedido(pedido1.getId_pedido()));
-        
-        //Calculo el total del detalle
-        System.out.println(detallaso.calcularTotalDetalle(pedido1.getId_pedido()));
-        
-        //Hago que el mozo cobre, devuelve el monto y cambia los estados de mesa y mozo para ese pedido
-        mozaso.cobrarPedido(pedido1.getId_pedido());
+      //  Pedido pedido1 = new Pedido(mesa, mozo, 0, LocalDate.EPOCH);
+//        PedidoData pedidaso = new PedidoData();
+//        pedidaso.guardarPedido(pedido1);
+//        
+//        //Creo 3 detalles, le asigno su pedido y los guardo en la BD
+//        Detalle_Pedido detalle1 = new Detalle_Pedido(p1, pedido1, 7);
+//        Detalle_Pedido detalle2 = new Detalle_Pedido(p2, pedido1, 5);
+//        Detalle_Pedido detalle3 = new Detalle_Pedido(p3, pedido1, 1);
+//        Detalle_PedidoData detallaso = new Detalle_PedidoData();
+//        detallaso.guardarDetalle(detalle1);
+//        detallaso.guardarDetalle(detalle2);
+//        detallaso.guardarDetalle(detalle3);
+//        detallaso.listarDetalle();   
+//
+//        
+//        //System.out.println(detalle1.buscarDetallePorID(24));
+//        //Obtengo un array con el detalle
+//        System.out.println(detallaso.buscarDetallePorPedido(pedido1.getId_pedido()));
+//        
+//        //Calculo el total del detalle
+//        System.out.println(detallaso.calcularTotalDetalle(pedido1.getId_pedido()));
+//        
+//        //Hago que el mozo cobre, devuelve el monto y cambia los estados de mesa y mozo para ese pedido
+//        mozaso.cobrarPedido(pedido1.getId_pedido());
     }
 }
