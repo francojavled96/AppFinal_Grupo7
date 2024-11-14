@@ -212,7 +212,7 @@ public class MeseroData {
         }        
     }    
    
-    //CObnra el pedido y libera mesero y mesa (estado 0)
+    //Cobra el pedido y libera mesero y mesa (estado 0)
     public double cobrarPedido(int id) {
         double total;
         int num_mesa;
@@ -231,5 +231,7 @@ public class MeseroData {
         pedido.liberarPedido(id);
         
         return total;
-    }    
+    }   
+    
+    
 }

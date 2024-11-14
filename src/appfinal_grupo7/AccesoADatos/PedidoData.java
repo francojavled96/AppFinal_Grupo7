@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import javax.swing.JOptionPane;
 
 /**
@@ -161,5 +162,25 @@ public class PedidoData {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla pedido");
         }        
+    }
+    
+    //obtener la ganancia de todo un día
+    public double gananciaTotalPorFecha(LocalDate fecha) {
+    double total = 0;
+    String sql = "SELECT SUM(dp.cantidad * pr.precio_unitario) AS total FROM pedido p"
+            + "INNER JOIN detalle_pedido dp ON p.id_pedido = dp.id_pedido "
+            + "INNER JOIN producto pr ON dp.id_producto = pr.id_producto"
+            + "WHERE p.fecha = ?";
+
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setDate(1, java.sql.Date.valueOf(fecha)); //LocalDate a java.sql.Date
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                total = rs.getDouble("total");
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al calcular la ganancia: " + ex.getMessage());
+        }    
+    return total;
     }
 }

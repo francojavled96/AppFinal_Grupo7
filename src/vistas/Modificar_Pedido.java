@@ -242,7 +242,7 @@ public class Modificar_Pedido extends javax.swing.JInternalFrame {
 
     private void jButton_CobrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_CobrarActionPerformed
         // TODO add your handling code here:
-        mesero.cobrarPedido(leerPedido());
+        mesero.cobrarPedido(leerPedido());        
     }//GEN-LAST:event_jButton_CobrarActionPerformed
 
     private void jButton_SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_SalirActionPerformed

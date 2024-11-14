@@ -93,6 +93,7 @@ public class Carga_pedidos extends javax.swing.JInternalFrame {
         jTextField_PedidoNumero = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jDateChooser_Fecha = new com.toedter.calendar.JDateChooser();
+        jButton1 = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(350, 640));
 
@@ -173,6 +174,13 @@ public class Carga_pedidos extends javax.swing.JInternalFrame {
             }
         });
 
+        jButton1.setText("Totaldía");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -180,30 +188,11 @@ public class Carga_pedidos extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel_Mesa)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel_Mesero))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jComboBox_Mesa, 0, 137, Short.MAX_VALUE)
-                            .addComponent(jComboBox_Mesero, 0, 137, Short.MAX_VALUE)
-                            .addComponent(jDateChooser_Fecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(47, 47, 47)
                         .addComponent(jLabel_Pedido))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(31, 31, 31)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(jButton_Limpiar)
-                                .addGap(36, 36, 36)
-                                .addComponent(jButton_Cargar_detalle)
-                                .addGap(29, 29, 29)
-                                .addComponent(jButton_Salir, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(110, 110, 110)
                         .addComponent(jLabel_Cargarpedidos))
@@ -214,7 +203,28 @@ public class Carga_pedidos extends javax.swing.JInternalFrame {
                             .addComponent(jButton_CrearPedido)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(88, 88, 88)
-                        .addComponent(jLabel2)))
+                        .addComponent(jLabel2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jButton_Limpiar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButton_Cargar_detalle)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButton_Salir, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton1))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel_Mesa)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel_Mesero))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jComboBox_Mesa, 0, 137, Short.MAX_VALUE)
+                                    .addComponent(jComboBox_Mesero, 0, 137, Short.MAX_VALUE)
+                                    .addComponent(jDateChooser_Fecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
                 .addContainerGap(22, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -248,8 +258,9 @@ public class Carga_pedidos extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton_Limpiar)
                     .addComponent(jButton_Cargar_detalle)
-                    .addComponent(jButton_Salir))
-                .addContainerGap(30, Short.MAX_VALUE))
+                    .addComponent(jButton_Salir)
+                    .addComponent(jButton1))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
 
         pack();
@@ -340,8 +351,21 @@ public class Carga_pedidos extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jDateChooser_FechaPropertyChange
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        java.util.Date fechaUtil = jDateChooser_Fecha.getDate();
+
+        if (fechaUtil != null) {
+            LocalDate fechaLocal = fechaUtil.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            System.out.println(pedi_data.gananciaTotalPorFecha(fechaLocal));
+        } else {
+            JOptionPane.showMessageDialog(null, "Introduzca una fecha válida.");
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton_Cargar_detalle;
     private javax.swing.JButton jButton_CrearPedido;
     private javax.swing.JButton jButton_Limpiar;
