@@ -11,6 +11,7 @@ import appfinal_grupo7.AccesoADatos.PedidoData;
 import appfinal_grupo7.AccesoADatos.ProductoData;
 import appfinal_grupo7.Entidades.Detalle_Pedido;
 import appfinal_grupo7.Entidades.Producto;
+import java.awt.Color;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -29,6 +30,9 @@ public class Procesar_Pedido extends javax.swing.JInternalFrame {
     private MeseroData mesero;
     private int id_pedido;
     
+    private Color color;
+
+    
 
 
     /** Creates new form Modificar_Pedido */
@@ -40,6 +44,7 @@ public class Procesar_Pedido extends javax.swing.JInternalFrame {
         pedido = new PedidoData();
         
         armarTabla();
+        color = jButton_Salir.getBackground(); 
     }
 
     /** This method is called from within the constructor to
@@ -80,6 +85,11 @@ public class Procesar_Pedido extends javax.swing.JInternalFrame {
         });
 
         jButton_Buscar.setText("¡Buscar!");
+        jButton_Buscar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jButton_BuscarMouseEntered(evt);
+            }
+        });
         jButton_Buscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_BuscarActionPerformed(evt);
@@ -115,6 +125,14 @@ public class Procesar_Pedido extends javax.swing.JInternalFrame {
         jLabel3.setText("¿Que desea hacer?");
 
         jButton_Cobrar.setText("Cobrar pedido");
+        jButton_Cobrar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jButton_CobrarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jButton_CobrarMouseExited(evt);
+            }
+        });
         jButton_Cobrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_CobrarActionPerformed(evt);
@@ -122,6 +140,14 @@ public class Procesar_Pedido extends javax.swing.JInternalFrame {
         });
 
         jButton_Cancelar.setText("Cancelar pedido");
+        jButton_Cancelar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jButton_CancelarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jButton_CancelarMouseExited(evt);
+            }
+        });
         jButton_Cancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_CancelarActionPerformed(evt);
@@ -129,6 +155,14 @@ public class Procesar_Pedido extends javax.swing.JInternalFrame {
         });
 
         jButton_Limpiar.setText("Limpiar");
+        jButton_Limpiar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jButton_LimpiarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jButton_LimpiarMouseExited(evt);
+            }
+        });
         jButton_Limpiar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_LimpiarActionPerformed(evt);
@@ -136,6 +170,14 @@ public class Procesar_Pedido extends javax.swing.JInternalFrame {
         });
 
         jButton_Salir.setText("Salir");
+        jButton_Salir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jButton_SalirMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jButton_SalirMouseExited(evt);
+            }
+        });
         jButton_Salir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_SalirActionPerformed(evt);
@@ -276,6 +318,50 @@ public class Procesar_Pedido extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Aaaah arrugaste");
         }        
     }//GEN-LAST:event_jButton_CancelarActionPerformed
+
+    private void jButton_BuscarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_BuscarMouseEntered
+        // TODO add your handling code here:
+        jButton_Buscar.setBackground( Color.orange.darker());
+    }//GEN-LAST:event_jButton_BuscarMouseEntered
+
+    private void jButton_CancelarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_CancelarMouseEntered
+        // TODO add your handling code here:
+        jButton_Cancelar.setBackground( Color.orange.darker());
+    }//GEN-LAST:event_jButton_CancelarMouseEntered
+
+    private void jButton_LimpiarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_LimpiarMouseEntered
+        // TODO add your handling code here:
+        jButton_Limpiar.setBackground( Color.orange.darker());
+    }//GEN-LAST:event_jButton_LimpiarMouseEntered
+
+    private void jButton_SalirMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_SalirMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton_SalirMouseExited
+
+    private void jButton_SalirMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_SalirMouseEntered
+        // TODO add your handling code here:
+        jButton_Salir.setBackground( Color.red.darker());
+    }//GEN-LAST:event_jButton_SalirMouseEntered
+
+    private void jButton_CobrarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_CobrarMouseEntered
+        // TODO add your handling code here:
+        jButton_Cobrar.setBackground( Color.orange.darker());
+    }//GEN-LAST:event_jButton_CobrarMouseEntered
+
+    private void jButton_CobrarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_CobrarMouseExited
+        // TODO add your handling code here:
+        jButton_Cobrar.setBackground(color);
+    }//GEN-LAST:event_jButton_CobrarMouseExited
+
+    private void jButton_CancelarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_CancelarMouseExited
+        // TODO add your handling code here:
+        jButton_Cancelar.setBackground(color);
+    }//GEN-LAST:event_jButton_CancelarMouseExited
+
+    private void jButton_LimpiarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_LimpiarMouseExited
+        // TODO add your handling code here:
+        jButton_Limpiar.setBackground(color);
+    }//GEN-LAST:event_jButton_LimpiarMouseExited
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

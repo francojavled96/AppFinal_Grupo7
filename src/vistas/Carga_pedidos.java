@@ -131,6 +131,9 @@ public class Carga_pedidos extends javax.swing.JInternalFrame {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jButton_LimpiarMouseEntered(evt);
             }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jButton_LimpiarMouseExited(evt);
+            }
         });
         jButton_Limpiar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -143,6 +146,9 @@ public class Carga_pedidos extends javax.swing.JInternalFrame {
         jButton_Cargar_detalle.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jButton_Cargar_detalleMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jButton_Cargar_detalleMouseExited(evt);
             }
         });
         jButton_Cargar_detalle.addActionListener(new java.awt.event.ActionListener() {
@@ -185,6 +191,9 @@ public class Carga_pedidos extends javax.swing.JInternalFrame {
         jButton_Salir.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jButton_SalirMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jButton_SalirMouseExited(evt);
             }
         });
         jButton_Salir.addActionListener(new java.awt.event.ActionListener() {
@@ -399,8 +408,23 @@ public class Carga_pedidos extends javax.swing.JInternalFrame {
 
     private void jButton_SalirMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_SalirMouseEntered
         // TODO add your handling code here:
-        jButton_Salir.setBackground( Color.orange.darker());
+        jButton_Salir.setBackground( Color.red.darker());
     }//GEN-LAST:event_jButton_SalirMouseEntered
+
+    private void jButton_LimpiarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_LimpiarMouseExited
+        // TODO add your handling code here:
+        jButton_Limpiar.setBackground(color);
+    }//GEN-LAST:event_jButton_LimpiarMouseExited
+
+    private void jButton_Cargar_detalleMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_Cargar_detalleMouseExited
+        // TODO add your handling code here:
+        jButton_Cargar_detalle.setBackground(color);
+    }//GEN-LAST:event_jButton_Cargar_detalleMouseExited
+
+    private void jButton_SalirMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_SalirMouseExited
+        // TODO add your handling code here:
+        jButton_Salir.setBackground(color);
+    }//GEN-LAST:event_jButton_SalirMouseExited
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
