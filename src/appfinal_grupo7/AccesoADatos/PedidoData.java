@@ -27,14 +27,15 @@ public class PedidoData {
     
     public void guardarPedido(Pedido pedido){
         
-        String sql = "INSERT INTO pedido (id_mesa, id_mesero, estado)"
-                + "VALUES(?, ?, ?)";   
+        String sql = "INSERT INTO pedido (id_mesa, id_mesero, estado, fecha)"
+                + "VALUES(?, ?, ?, ?)";   
         
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, pedido.getMesa().getId_mesa());
             ps.setInt(2, pedido.getMesero().getId_mesero());
-            ps.setInt(3, pedido.getEstado());            
+            ps.setInt(3, pedido.getEstado());    
+            ps.setDate(4, java.sql.Date.valueOf(pedido.getFecha()));
             ps.executeUpdate();
             
             ResultSet rs = ps.getGeneratedKeys();
@@ -70,16 +71,15 @@ public class PedidoData {
         }        
     }
     
-    public void eliminarPedido(int id){
-        
-        String sql = "UPDATE pedido SET estado = 0 WHERE id_pedido = ?"; 
-        
+    //lo elimina de la BD (no lógico)
+    public void eliminarPedido(int id){        
+        String sql = "DELETE FROM pedido WHERE id_pedido = ?";         
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, id);
-            int actualizado = ps.executeUpdate();
+            int eliminado = ps.executeUpdate();
             
-            if (actualizado == 1) {
+            if (eliminado == 1) {
                JOptionPane.showMessageDialog(null, "Pedido eliminado");
             }            
         } catch (SQLException ex) {
@@ -101,7 +101,7 @@ public class PedidoData {
                 Mesero mesero1 = mesero.buscarMeseroPorID(rs.getInt("id_mesero"));
                 pedido.setEstado(rs.getInt("estado"));
             }else{
-                JOptionPane.showMessageDialog(null, "No existe el pedido indicado ");
+                JOptionPane.showMessageDialog(null, "No existe el pedido indicado (pedido por id)");
             }                
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al accedera a la tabla pedido");
@@ -120,7 +120,7 @@ public class PedidoData {
             if(rs.next()){
                 id_mesa = rs.getInt("id_mesa");
             }else{
-                JOptionPane.showMessageDialog(null, "No existe el pedido indicado ");
+                JOptionPane.showMessageDialog(null, "No existe el pedido indicado (mesa)");
             }                
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al accedera a la tabla pedido");
@@ -139,7 +139,7 @@ public class PedidoData {
             if(rs.next()){
                 id_mesero = rs.getInt("id_mesero");
             }else{
-                JOptionPane.showMessageDialog(null, "No existe el pedido indicado ");
+                JOptionPane.showMessageDialog(null, "No existe el pedido indicado (mesero)");
             }                
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al accedera a la tabla pedido");

@@ -34,10 +34,10 @@
                           <Component id="jLabel_Mesero" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jComboBox_Mesa" alignment="0" min="-2" pref="137" max="-2" attributes="0"/>
-                          <Component id="jComboBox_Mesero" alignment="0" min="-2" pref="137" max="-2" attributes="0"/>
-                          <Component id="jDateChooser1" alignment="1" min="-2" pref="145" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="jComboBox_Mesa" alignment="0" pref="137" max="32767" attributes="0"/>
+                          <Component id="jComboBox_Mesero" alignment="0" pref="137" max="32767" attributes="0"/>
+                          <Component id="jDateChooser_Fecha" alignment="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -74,7 +74,7 @@
                       <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="18" max="32767" attributes="0"/>
+              <EmptySpace pref="22" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -96,9 +96,9 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                  <Component id="jDateChooser1" min="-2" pref="33" max="-2" attributes="0"/>
+                  <Component id="jDateChooser_Fecha" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
               <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jTextField_PedidoNumero" min="-2" max="-2" attributes="0"/>
@@ -224,8 +224,6 @@
         <Property name="text" type="java.lang.String" value="Seleccione una fecha:"/>
       </Properties>
     </Component>
-    <Component class="com.toedter.calendar.JDateChooser" name="jDateChooser1">
-    </Component>
     <Component class="javax.swing.JButton" name="jButton_CrearPedido">
       <Properties>
         <Property name="text" type="java.lang.String" value="Crear Pedido"/>
@@ -251,6 +249,11 @@
         </Property>
         <Property name="text" type="java.lang.String" value="El n&#xfa;mero de pedido es:"/>
       </Properties>
+    </Component>
+    <Component class="com.toedter.calendar.JDateChooser" name="jDateChooser_Fecha">
+      <Events>
+        <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="jDateChooser_FechaPropertyChange"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
