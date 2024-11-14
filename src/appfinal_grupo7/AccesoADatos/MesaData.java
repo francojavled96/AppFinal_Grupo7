@@ -6,10 +6,12 @@ package appfinal_grupo7.AccesoADatos;
 
 import appfinal_grupo7.Entidades.Mesa;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -124,7 +126,7 @@ public class MesaData {
         }    
         return mesas;
     }
-    
+
     public List<Mesa> listarMesasOcupadas(){
         String sql = "SELECT id_mesa, numero, capacidad FROM mesa WHERE estado = 1";
         ArrayList<Mesa> mesas = new ArrayList<>();
@@ -197,5 +199,29 @@ public class MesaData {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla mesa");
         }        
+    }
+    public List<Mesa> listarMesasDisponiblesXFecha(java.sql.Date fecha) {
+        String sql = "SELECT m.id_mesa, m.numero, m.capacidad "
+                   + "FROM mesa m "
+                   + "LEFT JOIN reserva r ON m.id_mesa = r.id_mesa AND r.fecha = ? "
+                   + "WHERE m.estado = 0 AND r.id_mesa IS NULL";
+        ArrayList<Mesa> mesas = new ArrayList<>();
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setDate(1, fecha);  // Establecer la fecha en el PreparedStatement
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Mesa mesa = new Mesa();
+                mesa.setId_mesa(rs.getInt("id_mesa"));
+                mesa.setNumero(rs.getInt("numero"));
+                mesa.setCapacidad(rs.getInt("capacidad"));
+                mesa.setEstado(false);  // Si es necesario, ajusta esto
+                mesas.add(mesa);
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la lista de mesas disponibles");
+            ex.printStackTrace();  // Esto es útil para depuración
+        }
+        return mesas;
     }
 }

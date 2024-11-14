@@ -1,6 +1,7 @@
 package appfinal_grupo7.Entidades;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 /**
  *
@@ -14,13 +15,13 @@ public class Reserva {
     private String nombre_persona;
     private int dni;
     private LocalDate fecha;
-    private LocalDate hora;
+    private LocalTime hora; /////////////////////*/*/*/*/*
     private boolean estado;
 
     public Reserva() {
     }
 
-    public Reserva(Mesa mesa, String nombre_persona, int dni, LocalDate fecha, LocalDate hora, boolean estado) {
+    public Reserva(Mesa mesa, String nombre_persona, int dni, LocalDate fecha, LocalTime hora, boolean estado) {
         this.mesa = mesa;
         this.nombre_persona = nombre_persona;
         this.dni = dni;
@@ -29,7 +30,7 @@ public class Reserva {
         this.estado = estado;
     }
 
-    public Reserva(int id_reserva, Mesa mesa, String nombre_persona, int dni, LocalDate fecha, LocalDate hora, boolean estado) {
+    public Reserva(int id_reserva, Mesa mesa, String nombre_persona, int dni, LocalDate fecha, LocalTime hora, boolean estado) { /////////?
         this.id_reserva = id_reserva;
         this.mesa = mesa;
         this.nombre_persona = nombre_persona;
@@ -79,11 +80,11 @@ public class Reserva {
         this.fecha = fecha;
     }
 
-    public LocalDate getHora() {
+    public LocalTime getHora() {
         return hora;
     }
 
-    public void setHora(LocalDate hora) {
+    public void setHora(LocalTime hora) {
         this.hora = hora;
     }
 
