@@ -5,8 +5,11 @@
 package vistas;
 
 import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.util.HashSet;
 import java.util.Set;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 /**
@@ -33,7 +36,14 @@ public class Menu_principal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        escritorio = new javax.swing.JDesktopPane();
+        ImageIcon icono = new ImageIcon(getClass().getResource("/recursos/fondo.png"));
+        Image fondo = icono.getImage();
+        escritorio = new javax.swing.JDesktopPane(){
+
+            public void paintComponent(Graphics g){
+                g.drawImage(fondo,0,0,getWidth(),getHeight(),this);
+            }
+        };
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu_Pedidos = new javax.swing.JMenu();
         jMenuItem_CrearPedi = new javax.swing.JMenuItem();

@@ -76,6 +76,7 @@ public class Procesar_Pedido extends javax.swing.JInternalFrame {
         jLabel1.setForeground(new java.awt.Color(204, 204, 204));
         jLabel1.setText("Procesar Pedido");
 
+        jLabel_NumPedido.setForeground(new java.awt.Color(255, 255, 255));
         jLabel_NumPedido.setText("Introduzca el n° de pedido:");
 
         jTextField_NumPedido.addActionListener(new java.awt.event.ActionListener() {
@@ -88,6 +89,9 @@ public class Procesar_Pedido extends javax.swing.JInternalFrame {
         jButton_Buscar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jButton_BuscarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jButton_BuscarMouseExited(evt);
             }
         });
         jButton_Buscar.addActionListener(new java.awt.event.ActionListener() {
@@ -336,6 +340,7 @@ public class Procesar_Pedido extends javax.swing.JInternalFrame {
 
     private void jButton_SalirMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_SalirMouseExited
         // TODO add your handling code here:
+        jButton_Salir.setBackground(color);
     }//GEN-LAST:event_jButton_SalirMouseExited
 
     private void jButton_SalirMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_SalirMouseEntered
@@ -362,6 +367,11 @@ public class Procesar_Pedido extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         jButton_Limpiar.setBackground(color);
     }//GEN-LAST:event_jButton_LimpiarMouseExited
+
+    private void jButton_BuscarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_BuscarMouseExited
+        // TODO add your handling code here:
+        jButton_Buscar.setBackground(color);
+    }//GEN-LAST:event_jButton_BuscarMouseExited
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
