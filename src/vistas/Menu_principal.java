@@ -121,6 +121,12 @@ public class Menu_principal extends javax.swing.JFrame {
         Carga_pedidos pedidos = new Carga_pedidos();
         pedidos.setVisible(true);
         escritorio.add(pedidos);  
+        
+        int frameWidth = pedidos.getWidth()+20;
+        int frameHeight = pedidos.getHeight()+40;
+        setSize(frameWidth, frameHeight); // Ajusta el tamaño del JFrame
+
+        setLocationRelativeTo(null);
     }//GEN-LAST:event_jMenuItem_CrearPediActionPerformed
 
     private void jMenuItem_CobrarPediActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_CobrarPediActionPerformed
@@ -130,6 +136,12 @@ public class Menu_principal extends javax.swing.JFrame {
         Modificar_Pedido pedidos = new Modificar_Pedido();
         pedidos.setVisible(true);
         escritorio.add(pedidos);  
+        
+        int frameWidth = pedidos.getWidth()+20;
+        int frameHeight = pedidos.getHeight()+40;
+        setSize(frameWidth, frameHeight); // Ajusta el tamaño del JFrame
+
+        setLocationRelativeTo(null);
     }//GEN-LAST:event_jMenuItem_CobrarPediActionPerformed
 
     private void jMenuItemReservasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemReservasActionPerformed
@@ -186,4 +198,7 @@ public class Menu_principal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu_Pedidos;
     private javax.swing.JMenu jMenu_Reservas;
     // End of variables declaration//GEN-END:variables
+
+    
 }
+

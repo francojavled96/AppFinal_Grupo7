@@ -16,7 +16,9 @@ import appfinal_grupo7.Entidades.Pedido;
 import appfinal_grupo7.Entidades.Producto;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -28,6 +30,12 @@ public class Carga_pedidos extends javax.swing.JInternalFrame {
     private ArrayList<Mesero> lista_mesero;
     private ArrayList<Producto> lista_producto;
     
+    
+    private Producto producto;
+    private Mesa mesa;
+    private Mesero mesero;
+    private Detalle_Pedido detalle_pedido;
+    private Pedido pedido;
     
     private MesaData mesa_data;
     private MeseroData mesero_data;
@@ -80,11 +88,11 @@ public class Carga_pedidos extends javax.swing.JInternalFrame {
         jLabel_Mesero = new javax.swing.JLabel();
         jComboBox_Mesero = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
         jButton_CrearPedido = new javax.swing.JButton();
         jButton_Salir = new javax.swing.JButton();
         jTextField_PedidoNumero = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
+        jDateChooser_Fecha = new com.toedter.calendar.JDateChooser();
 
         setPreferredSize(new java.awt.Dimension(350, 640));
 
@@ -159,6 +167,12 @@ public class Carga_pedidos extends javax.swing.JInternalFrame {
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel2.setText("El número de pedido es:");
 
+        jDateChooser_Fecha.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jDateChooser_FechaPropertyChange(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -172,10 +186,10 @@ public class Carga_pedidos extends javax.swing.JInternalFrame {
                             .addComponent(jLabel1)
                             .addComponent(jLabel_Mesero))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBox_Mesa, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox_Mesero, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jDateChooser1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jComboBox_Mesa, 0, 137, Short.MAX_VALUE)
+                            .addComponent(jComboBox_Mesero, 0, 137, Short.MAX_VALUE)
+                            .addComponent(jDateChooser_Fecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(47, 47, 47)
                         .addComponent(jLabel_Pedido))
@@ -201,7 +215,7 @@ public class Carga_pedidos extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(88, 88, 88)
                         .addComponent(jLabel2)))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -219,8 +233,8 @@ public class Carga_pedidos extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(50, 50, 50)
+                    .addComponent(jDateChooser_Fecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(59, 59, 59)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jTextField_PedidoNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -243,37 +257,23 @@ public class Carga_pedidos extends javax.swing.JInternalFrame {
 
     private void jButton_Cargar_detalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Cargar_detalleActionPerformed
         // TODO add your handling code here:
-        Detalle_PedidoData detallaso = new Detalle_PedidoData();
-        Pedido pedido;
-        PedidoData pedidaso = new PedidoData();       
-        Producto producto;
-        ProductoData productaso = new ProductoData();
-        int id =Integer.parseInt(jTextField_PedidoNumero.getText());         
-        
-        int rowCount = jTable_Pedido.getRowCount();
+        int id =Integer.parseInt(jTextField_PedidoNumero.getText());
+        int cantidad_filas = jTable_Pedido.getRowCount();
 
-            // Recorrer todas las filas de la tabla
-            for (int i = 0; i < rowCount; i++) {
-                // Obtener el modelo de la tabla
-                DefaultTableModel tableModel = (DefaultTableModel) jTable_Pedido.getModel();
+            for (int i = 0; i < cantidad_filas; i++) {
+                DefaultTableModel modelo = (DefaultTableModel) jTable_Pedido.getModel();
 
-                // Obtener los valores de las columnas de la fila actual
-                int producto_id = (int) tableModel.getValueAt(i, 0);// Columna "ID"
-                System.out.println(producto_id);
-                double precio = (double) tableModel.getValueAt(i, 2);// Columna "Precio"
-                System.out.println(precio);
-                if (tableModel.getValueAt(i, 3) != null) {
-                    int cantidad = Integer.parseInt(tableModel.getValueAt(i, 3).toString());// Columna "Cantidad"       
-                    System.out.println(cantidad);
-                    
-                    producto = productaso.buscarProductoPorID(producto_id);
-                    pedido = pedidaso.buscarPedidoPorID(id);
+                int producto_id = (int) modelo.getValueAt(i, 0);// Columna "ID"
+                double precio = (double) modelo.getValueAt(i, 2);// Columna "Precio"
+                if (modelo.getValueAt(i, 3) != null) {
+                int cantidad = Integer.parseInt(modelo.getValueAt(i, 3).toString());// Columna "Cantidad" 
+                producto = produ_data.buscarProductoPorID(producto_id);
+                pedido = this.pedi_data.buscarPedidoPorID(id);
 
-                    // Crear el objeto Detalle_Pedido con los valores obtenidos
-                    Detalle_Pedido detalle= new Detalle_Pedido(producto, pedido, cantidad);
-                    detallaso.guardarDetalle(detalle);
-                    jButton_Cargar_detalle.setEnabled(false);
-                    jButton_CrearPedido.setEnabled(true);                                        
+                Detalle_Pedido detalle= new Detalle_Pedido(producto, pedido, cantidad);
+                detalle_data.guardarDetalle(detalle);
+                jButton_Cargar_detalle.setEnabled(false);
+                jButton_CrearPedido.setEnabled(true);                                        
                 }
             }
         limpiarCampos();
@@ -283,25 +283,39 @@ public class Carga_pedidos extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         Mesa mesa_selec = (Mesa) jComboBox_Mesa.getSelectedItem();
         Mesero mesero_secMesero = (Mesero) jComboBox_Mesero.getSelectedItem();
-        //Date fecha = (Date) jDateChooser1.getDate();
         
-        Pedido nuevo_pedido = new Pedido(mesa_selec, mesero_secMesero, 1, null);
-        PedidoData registro_pedido = new PedidoData();
-        registro_pedido.guardarPedido(nuevo_pedido);
-        jTextField_PedidoNumero.setText(nuevo_pedido.getId_pedido()+"");
-        jTextField_PedidoNumero.setEditable(false);
-        jButton_CrearPedido.setEnabled(false);
-        jButton_Cargar_detalle.setEnabled(true);     
+        if (jDateChooser_Fecha.getDate() != null) {    
+            
+            //obtener fecha (java.util.Date)
+            java.util.Date fechaUtil = jDateChooser_Fecha.getDate();
         
-        mesero_data.cambiarAOcupado(mesero_secMesero.getId_mesero());
-        mesa_data.cambiarAOcupada(mesa_selec.getId_mesa());
-        
-        jComboBox_Mesa.removeAllItems();
-        jComboBox_Mesero.removeAllItems();
-        lista_mesa = (ArrayList<Mesa>) mesa_data.listarMesasLibres();
-        lista_mesero = (ArrayList<Mesero>) mesero_data.listarMeserosLibres();
-        cargarMesas();
-        cargarMeseros();
+            //convertir util a Local
+            LocalDate fechaLocal = fechaUtil.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+            //convierter Local a java.sql.Date
+            java.sql.Date fechaSQL = java.sql.Date.valueOf(fechaLocal);
+            
+            Pedido nuevo_pedido = new Pedido(mesa_selec, mesero_secMesero, 1, fechaLocal);
+            PedidoData registro_pedido = new PedidoData();
+            registro_pedido.guardarPedido(nuevo_pedido);
+            
+            jTextField_PedidoNumero.setText(nuevo_pedido.getId_pedido()+"");
+            jTextField_PedidoNumero.setEditable(false);
+            jButton_CrearPedido.setEnabled(false);
+            jButton_Cargar_detalle.setEnabled(true);     
+
+            mesero_data.cambiarAOcupado(mesero_secMesero.getId_mesero());
+            mesa_data.cambiarAOcupada(mesa_selec.getId_mesa());
+
+            jComboBox_Mesa.removeAllItems();
+            jComboBox_Mesero.removeAllItems();
+            lista_mesa = (ArrayList<Mesa>) mesa_data.listarMesasLibres();
+            lista_mesero = (ArrayList<Mesero>) mesero_data.listarMeserosLibres();
+            cargarMesas();
+            cargarMeseros();
+        } else {
+            JOptionPane.showMessageDialog(null, "Debe ingresar una fecha");            
+        }
     }//GEN-LAST:event_jButton_CrearPedidoActionPerformed
 
     private void jButton_SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_SalirActionPerformed
@@ -319,6 +333,13 @@ public class Carga_pedidos extends javax.swing.JInternalFrame {
         cargarTabla();
     }//GEN-LAST:event_jButton_LimpiarActionPerformed
 
+    private void jDateChooser_FechaPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jDateChooser_FechaPropertyChange
+        // TODO add your handling code here:
+        if (jDateChooser_Fecha.getDate() != null) {
+            LocalDate fecha = jDateChooser_Fecha.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();            
+        }
+    }//GEN-LAST:event_jDateChooser_FechaPropertyChange
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton_Cargar_detalle;
@@ -327,7 +348,7 @@ public class Carga_pedidos extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButton_Salir;
     private javax.swing.JComboBox<Mesa> jComboBox_Mesa;
     private javax.swing.JComboBox<Mesero> jComboBox_Mesero;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
+    private com.toedter.calendar.JDateChooser jDateChooser_Fecha;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel_Cargarpedidos;

@@ -68,7 +68,7 @@ public class MeseroData {
         }        
     }
     
-    public void eliminarMesero(int id){
+    /*public void eliminarMesero(int id){
         
         String sql = "UPDATE mesero SET estado = 0 WHERE id_Mesero = ?"; 
         
@@ -83,8 +83,9 @@ public class MeseroData {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla mesero");
         }        
-    }
+    }*/
     
+    //Busca mesero según su ID
     public Mesero buscarMeseroPorID(int id){
     String sql = "SELECT nombre, apellido, estado FROM mesero WHERE id_mesero = ?";
     Mesero mesero = null;
@@ -99,14 +100,15 @@ public class MeseroData {
             mesero.setApellido_mesero(rs.getString("apellido"));
             mesero.setEstado(true);
         }else{
-            JOptionPane.showMessageDialog(null, "La mesa indicada no existe");
+            JOptionPane.showMessageDialog(null, "La mesero indicada no existe");
         }
     } catch (SQLException ex) {
-        JOptionPane.showMessageDialog(null, "Error al accedera a la tabla mesa");
+        JOptionPane.showMessageDialog(null, "Error al accedera a la tabla mesero");
     }    
     return mesero;
     }
     
+    //Lista de mesero estado 0
     public List<Mesero> listarMeserosLibres(){
         String sql = "SELECT id_mesero, nombre, apellido FROM mesero WHERE estado = 0";
         ArrayList<Mesero> meseros = new ArrayList<>();
@@ -129,6 +131,7 @@ public class MeseroData {
         return meseros;
     }
     
+    //Lista de meseros estasdo 1
     public List<Mesero> listarMeserosOcupados(){
         String sql = "SELECT id_mesero, nombre, apellido FROM mesero WHERE estado = 1";
         ArrayList<Mesero> meseros = new ArrayList<>();
@@ -151,6 +154,7 @@ public class MeseroData {
         return meseros;
     }
     
+    //Lista de meseros completa
     public List<Mesero> listarMeserosTodos(){
         String sql = "SELECT id_mesero, nombre, apellido, estado FROM mesero" ;
         ArrayList<Mesero> meseros = new ArrayList<>();
@@ -172,6 +176,7 @@ public class MeseroData {
         return meseros;
     }
     
+    //Cambia un mesero a ocupado
     public void cambiarAOcupado(int id){
         
         String sql = "UPDATE mesero SET estado = 1 WHERE id_Mesero = ?"; 
@@ -189,6 +194,7 @@ public class MeseroData {
         }        
     }
     
+    //Cambia un mesero a libre
     public void cambiarALibre(int id){
         
         String sql = "UPDATE mesero SET estado = 0 WHERE id_Mesero = ?"; 
@@ -205,13 +211,8 @@ public class MeseroData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla mesero");
         }        
     }    
-    
-    
-    public void atenderMesa(){
-        //Le cambia el estado a la mesa a ocupada y crea el pedido
-        //Ver si 1 mesa le cambia el estado al meser, yo haría que atienda hasta 2 mesas
-    }
-    
+   
+    //CObnra el pedido y libera mesero y mesa (estado 0)
     public double cobrarPedido(int id) {
         double total;
         int num_mesa;
@@ -230,20 +231,5 @@ public class MeseroData {
         pedido.liberarPedido(id);
         
         return total;
-    }
-    
-    public void crearReserva(){
-        //Crea una reserva
-        //Le cambia el estado a la Mesa a ocupado
-    }
-    
-    public void cancelarReserva(){
-        //Elimina una reserva   
-        //Le cambia el estado a la mesa a libre
-    }
-    
-    public void verGanancias(){
-        //Ve la suma de las ganancias filtrando por fecha
-        //Posiblemente llame métodos de la Clase "PedidoData"
-    }
+    }    
 }

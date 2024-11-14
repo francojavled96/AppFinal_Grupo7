@@ -7,6 +7,7 @@ package vistas;
 
 import appfinal_grupo7.AccesoADatos.Detalle_PedidoData;
 import appfinal_grupo7.AccesoADatos.MeseroData;
+import appfinal_grupo7.AccesoADatos.PedidoData;
 import appfinal_grupo7.AccesoADatos.ProductoData;
 import appfinal_grupo7.Entidades.Detalle_Pedido;
 import appfinal_grupo7.Entidades.Producto;
@@ -23,6 +24,7 @@ public class Modificar_Pedido extends javax.swing.JInternalFrame {
     private DefaultTableModel modelo;
     private ArrayList<Detalle_Pedido> lista_detalle;
     
+    private PedidoData pedido;
     private Detalle_PedidoData detalle;
     private MeseroData mesero;
     private int id_pedido;
@@ -35,7 +37,7 @@ public class Modificar_Pedido extends javax.swing.JInternalFrame {
         modelo = new DefaultTableModel();
         detalle = new Detalle_PedidoData();   
         mesero = new MeseroData();
-        
+        pedido = new PedidoData();
         
         armarTabla();
     }
@@ -115,10 +117,25 @@ public class Modificar_Pedido extends javax.swing.JInternalFrame {
         });
 
         jButton_Cancelar.setText("Cancelar pedido");
+        jButton_Cancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_CancelarActionPerformed(evt);
+            }
+        });
 
         jButton_Limpiar.setText("Limpiar");
+        jButton_Limpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_LimpiarActionPerformed(evt);
+            }
+        });
 
         jButton_Salir.setText("Salir");
+        jButton_Salir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_SalirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -156,11 +173,12 @@ public class Modificar_Pedido extends javax.swing.JInternalFrame {
                         .addComponent(jButton_Buscar))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(143, 143, 143)
-                        .addComponent(jTextField_Total, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(17, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jTextField_Total, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(148, 148, 148))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -206,8 +224,15 @@ public class Modificar_Pedido extends javax.swing.JInternalFrame {
             
             jTextField_Total.setText("$ " + mostrarTotal() + "");
             
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Debe ingresar un valor válido");
+            jButton_Cobrar.setEnabled(false);
+            jButton_Cancelar.setEnabled(false);
+        }
+         catch (NullPointerException  e) {
+            JOptionPane.showMessageDialog(null, "No hay registros de ese pedido (null)");
+            jButton_Cobrar.setEnabled(false);
+            jButton_Cancelar.setEnabled(false);
         }
     }//GEN-LAST:event_jButton_BuscarActionPerformed
 
@@ -219,6 +244,32 @@ public class Modificar_Pedido extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         mesero.cobrarPedido(leerPedido());
     }//GEN-LAST:event_jButton_CobrarActionPerformed
+
+    private void jButton_SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_SalirActionPerformed
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_jButton_SalirActionPerformed
+
+    private void jButton_LimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_LimpiarActionPerformed
+        // TODO add your handling code here:
+        limpiarTabla();
+        jTextField_NumPedido.setText("");
+        jTextField_Total.setText("");
+        jButton_Cobrar.setEnabled(true);
+        jButton_Cancelar.setEnabled(true);
+    }//GEN-LAST:event_jButton_LimpiarActionPerformed
+
+    private void jButton_CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_CancelarActionPerformed
+        // TODO add your handling code here:
+        int respuesta = JOptionPane.showConfirmDialog(null, "Si cancela el pedido, se eliminará de la base de datos ¿Desea continuar?", "Confirmación", JOptionPane.YES_NO_OPTION);
+
+        if (respuesta == JOptionPane.YES_OPTION) {
+            detalle.eliminarDetallesPorPedido(id_pedido);
+            pedido.eliminarPedido(id_pedido);
+        } else if (respuesta == JOptionPane.NO_OPTION) {
+            JOptionPane.showMessageDialog(null, "Aaaah arrugaste");
+        }        
+    }//GEN-LAST:event_jButton_CancelarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -251,14 +302,26 @@ public class Modificar_Pedido extends javax.swing.JInternalFrame {
         jTable_Detalle.setModel(modelo);
     }
     
-    private void cargarTabla(int id_pedido){
-        
+    private void cargarTabla(int id_pedido){                
         lista_detalle= (ArrayList<Detalle_Pedido>) detalle.buscarDetallePorPedido(id_pedido);
+        limpiarTabla();
         
-        for (Detalle_Pedido deta : lista_detalle) {
-            
+        
+        if (pedido.buscarPedidoPorID(id_pedido).getEstado() == 0) {
+            JOptionPane.showMessageDialog(null, "Este pedido ya se cobró.");
+            jButton_Cobrar.setEnabled(false); 
+            jButton_Cancelar.setEnabled(false);
+        }
+        
+        for (Detalle_Pedido deta : lista_detalle) {   
             modelo.addRow(new Object[] {deta.getId_detalle(), deta.getProducto().getNombre(), deta.getProducto().getPrecio_unitario(),
             deta.getCantidad(), deta.getCantidad()*deta.getProducto().getPrecio_unitario()});
+        } 
+    }
+    
+    private void limpiarTabla() {
+        if (modelo != null) {
+            modelo.setRowCount(0); 
         }
     }
     
@@ -268,6 +331,5 @@ public class Modificar_Pedido extends javax.swing.JInternalFrame {
     
     private int leerPedido(){
         return id_pedido = Integer.parseInt(jTextField_NumPedido.getText());
-    }
-    
+    }    
 }

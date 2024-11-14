@@ -83,29 +83,7 @@ public class Detalle_PedidoData {
         }        
     }
     
-    public List <Detalle_Pedido> listarDetalle(){
-        ArrayList<Detalle_Pedido> lista = new ArrayList<>();   
-        Detalle_Pedido detalle;
-        String sql = "SELECT * FROM detalle_pedido";
-        
-          try (
-            PreparedStatement ps = con.prepareStatement(sql);
-            ResultSet rs= ps.executeQuery()) {
-        {
-            while(rs.next()){
-                detalle = new Detalle_Pedido();
-                detalle.setId_detalle(rs.getInt("id_producto"));
-                Pedido pedi = pedido.buscarPedidoPorID(rs.getInt("id_pedido"));
-                detalle.setCantidad(rs.getInt("cantidad"));
-            lista.add(detalle);
-            }
-        }
-    }   catch (SQLException ex) {
-        JOptionPane.showMessageDialog(null, "Error al listar el detalle del pedido");
-        }
-        return lista;
-    }
-    
+    //Detalle por id
     public Detalle_Pedido buscarDetallePorID(int id){
         String sql = "SELECT id_producto, id_pedido ,cantidad FROM detalle_pedido WHERE id_detalle = ?";
         Detalle_Pedido detalle = null;
@@ -130,6 +108,30 @@ public class Detalle_PedidoData {
         }
        return detalle;
     }
+    
+    //Lista todos los detalles
+    public List <Detalle_Pedido> listarDetalle(){
+        ArrayList<Detalle_Pedido> lista = new ArrayList<>();   
+        Detalle_Pedido detalle;
+        String sql = "SELECT * FROM detalle_pedido";
+        
+          try (
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs= ps.executeQuery()) {
+        {
+            while(rs.next()){
+                detalle = new Detalle_Pedido();
+                detalle.setId_detalle(rs.getInt("id_producto"));
+                Pedido pedi = pedido.buscarPedidoPorID(rs.getInt("id_pedido"));
+                detalle.setCantidad(rs.getInt("cantidad"));
+            lista.add(detalle);
+            }
+        }
+    }   catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al listar el detalle del pedido");
+        }
+        return lista;
+    }    
     
     //Lista de detalle que comparten un mismo pedido
     public List <Detalle_Pedido> buscarDetallePorPedido(int id){
@@ -159,7 +161,26 @@ public class Detalle_PedidoData {
         return lista;
     }
     
-    //Suma de detalle para el mismo pedido
+    //elimino todos los detalles de ese pedido
+    public void eliminarDetallesPorPedido(int id_pedido) {
+    String sql = "DELETE FROM detalle_pedido WHERE id_pedido = ?";
+    
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id_pedido);
+            int filasEliminadas = ps.executeUpdate();
+
+            if (filasEliminadas > 0) {
+                JOptionPane.showMessageDialog(null, "Se eliminaron " + filasEliminadas + " detalles del pedido con ID: " + id_pedido);
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró detalle para el pedido proporcionado");
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al intentar eliminar detalles de la tabla detalle_pedido");
+        }
+    }   
+    
+    //Suma total de todos los detalles para un mismo pedido
     public double calcularTotalDetalle(int id) {
     double total_pedido = 0.0;    
     List<Detalle_Pedido> detalles = buscarDetallePorPedido(id);  
