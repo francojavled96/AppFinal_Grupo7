@@ -14,7 +14,7 @@ import appfinal_grupo7.Entidades.Mesa;
 import appfinal_grupo7.Entidades.Mesero;
 import appfinal_grupo7.Entidades.Pedido;
 import appfinal_grupo7.Entidades.Producto;
-import java.sql.Date;
+import java.awt.Color;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -28,9 +28,8 @@ import javax.swing.table.DefaultTableModel;
 public class Carga_pedidos extends javax.swing.JInternalFrame {
     private ArrayList<Mesa> lista_mesa;
     private ArrayList<Mesero> lista_mesero;
-    private ArrayList<Producto> lista_producto;
-    
-    
+    private static ArrayList<Producto> lista_producto;
+        
     private Producto producto;
     private Mesa mesa;
     private Mesero mesero;
@@ -43,29 +42,34 @@ public class Carga_pedidos extends javax.swing.JInternalFrame {
     private PedidoData pedi_data;
     private ProductoData produ_data;
     
-    private DefaultTableModel modelo;
+    private DefaultTableModel modelo= new DefaultTableModel();   
+    private Color color;
 
     /**
      * Creates new form Carga_pedidos
      */
     public Carga_pedidos() {
         initComponents();
+        armarCabecera();
         
         mesa_data = new MesaData();
         mesero_data = new MeseroData();
         pedi_data = new PedidoData();
         detalle_data = new Detalle_PedidoData();
         produ_data = new ProductoData();
-        modelo = new DefaultTableModel();
-        
+                 
         lista_mesa = (ArrayList<Mesa>) mesa_data.listarMesasLibres();
         lista_mesero = (ArrayList<Mesero>) mesero_data.listarMeserosLibres();
+        lista_producto = (ArrayList<Producto>) produ_data.listarProductos();
+        //System.out.println(lista_producto);
         
+        color = jButton_Cargar_detalle.getBackground(); 
         cargarMesas();
         cargarMeseros();
-        armarTabla();
-        cargarTabla();
         
+        modelo.setRowCount(0);
+        cargarTabla();
+        jTable_Productos.getColumnModel().getColumn(0).setPreferredWidth(25);
     }
 
     /**
@@ -80,7 +84,7 @@ public class Carga_pedidos extends javax.swing.JInternalFrame {
         jLabel_Cargarpedidos = new javax.swing.JLabel();
         jLabel_Pedido = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable_Pedido = new javax.swing.JTable();
+        jTable_Productos = new javax.swing.JTable();
         jButton_Limpiar = new javax.swing.JButton();
         jButton_Cargar_detalle = new javax.swing.JButton();
         jLabel_Mesa = new javax.swing.JLabel();
@@ -93,20 +97,24 @@ public class Carga_pedidos extends javax.swing.JInternalFrame {
         jTextField_PedidoNumero = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jDateChooser_Fecha = new com.toedter.calendar.JDateChooser();
+        jTextField_BuscarPorNombre = new javax.swing.JTextField();
+        jButton_CerraPedido = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(350, 640));
 
         jLabel_Cargarpedidos.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel_Cargarpedidos.setForeground(new java.awt.Color(204, 204, 204));
         jLabel_Cargarpedidos.setText("Cargar pedidos");
 
-        jLabel_Pedido.setText("Seleccione los productos y cantidades a cargar:");
+        jLabel_Pedido.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel_Pedido.setText("Escriba y seleccione los productos y cantidades deseadas:");
 
-        jTable_Pedido.setModel(new javax.swing.table.DefaultTableModel(
+        jTable_Productos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
                 "Producto", "Precio", "Cantidad"
@@ -121,9 +129,17 @@ public class Carga_pedidos extends javax.swing.JInternalFrame {
                 return canEdit[columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable_Pedido);
+        jScrollPane1.setViewportView(jTable_Productos);
 
         jButton_Limpiar.setText("Limpiar");
+        jButton_Limpiar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jButton_LimpiarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jButton_LimpiarMouseExited(evt);
+            }
+        });
         jButton_Limpiar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_LimpiarActionPerformed(evt);
@@ -132,12 +148,21 @@ public class Carga_pedidos extends javax.swing.JInternalFrame {
 
         jButton_Cargar_detalle.setText("Cargar detalle");
         jButton_Cargar_detalle.setEnabled(false);
+        jButton_Cargar_detalle.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jButton_Cargar_detalleMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jButton_Cargar_detalleMouseExited(evt);
+            }
+        });
         jButton_Cargar_detalle.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_Cargar_detalleActionPerformed(evt);
             }
         });
 
+        jLabel_Mesa.setForeground(new java.awt.Color(255, 255, 255));
         jLabel_Mesa.setText("Seleccione una mesa libre");
 
         jComboBox_Mesa.addActionListener(new java.awt.event.ActionListener() {
@@ -146,11 +171,21 @@ public class Carga_pedidos extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel_Mesero.setForeground(new java.awt.Color(255, 255, 255));
         jLabel_Mesero.setText("Seleccione un mesero libre");
 
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Seleccione una fecha:");
 
         jButton_CrearPedido.setText("Crear Pedido");
+        jButton_CrearPedido.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jButton_CrearPedidoMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jButton_CrearPedidoMouseExited(evt);
+            }
+        });
         jButton_CrearPedido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_CrearPedidoActionPerformed(evt);
@@ -158,6 +193,14 @@ public class Carga_pedidos extends javax.swing.JInternalFrame {
         });
 
         jButton_Salir.setText("Salir");
+        jButton_Salir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jButton_SalirMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jButton_SalirMouseExited(evt);
+            }
+        });
         jButton_Salir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_SalirActionPerformed(evt);
@@ -165,11 +208,28 @@ public class Carga_pedidos extends javax.swing.JInternalFrame {
         });
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(204, 204, 204));
         jLabel2.setText("El número de pedido es:");
 
-        jDateChooser_Fecha.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                jDateChooser_FechaPropertyChange(evt);
+        jTextField_BuscarPorNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField_BuscarPorNombreKeyReleased(evt);
+            }
+        });
+
+        jButton_CerraPedido.setText("¡Cerrar pedido!");
+        jButton_CerraPedido.setEnabled(false);
+        jButton_CerraPedido.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jButton_CerraPedidoMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jButton_CerraPedidoMouseExited(evt);
+            }
+        });
+        jButton_CerraPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_CerraPedidoActionPerformed(evt);
             }
         });
 
@@ -182,47 +242,55 @@ public class Carga_pedidos extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(20, 20, 20)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel_Mesa)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel_Mesero))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jComboBox_Mesa, 0, 137, Short.MAX_VALUE)
-                            .addComponent(jComboBox_Mesero, 0, 137, Short.MAX_VALUE)
-                            .addComponent(jDateChooser_Fecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(47, 47, 47)
-                        .addComponent(jLabel_Pedido))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
+                                .addGap(17, 17, 17)
                                 .addComponent(jButton_Limpiar)
-                                .addGap(36, 36, 36)
+                                .addGap(63, 63, 63)
                                 .addComponent(jButton_Cargar_detalle)
-                                .addGap(29, 29, 29)
+                                .addGap(50, 50, 50)
                                 .addComponent(jButton_Salir, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel_Mesa)
+                                        .addComponent(jLabel1)
+                                        .addComponent(jLabel_Mesero))
+                                    .addGap(18, 18, 18)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jComboBox_Mesero, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jComboBox_Mesa, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jDateChooser_Fecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel2)
+                                    .addGap(32, 32, 32))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jButton_CrearPedido)
+                                        .addComponent(jTextField_PedidoNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGap(86, 86, 86)))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(110, 110, 110)
+                        .addGap(114, 114, 114)
                         .addComponent(jLabel_Cargarpedidos))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(131, 131, 131)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jTextField_PedidoNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton_CrearPedido)))
+                        .addGap(31, 31, 31)
+                        .addComponent(jLabel_Pedido))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(88, 88, 88)
-                        .addComponent(jLabel2)))
-                .addContainerGap(22, Short.MAX_VALUE))
+                        .addGap(105, 105, 105)
+                        .addComponent(jTextField_BuscarPorNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                .addComponent(jButton_CerraPedido)
+                .addGap(35, 35, 35))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(12, 12, 12)
                 .addComponent(jLabel_Cargarpedidos)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel_Mesa)
                     .addComponent(jComboBox_Mesa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -234,22 +302,29 @@ public class Carga_pedidos extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addComponent(jDateChooser_Fecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(59, 59, 59)
+                .addGap(53, 53, 53)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jTextField_PedidoNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton_CrearPedido)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel_Pedido)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addComponent(jTextField_BuscarPorNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(76, 76, 76)
+                        .addComponent(jButton_CerraPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton_Limpiar)
                     .addComponent(jButton_Cargar_detalle)
                     .addComponent(jButton_Salir))
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         pack();
@@ -258,10 +333,10 @@ public class Carga_pedidos extends javax.swing.JInternalFrame {
     private void jButton_Cargar_detalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Cargar_detalleActionPerformed
         // TODO add your handling code here:
         int id =Integer.parseInt(jTextField_PedidoNumero.getText());
-        int cantidad_filas = jTable_Pedido.getRowCount();
+        int cantidad_filas = jTable_Productos.getRowCount();
 
             for (int i = 0; i < cantidad_filas; i++) {
-                DefaultTableModel modelo = (DefaultTableModel) jTable_Pedido.getModel();
+                DefaultTableModel modelo = (DefaultTableModel) jTable_Productos.getModel();
 
                 int producto_id = (int) modelo.getValueAt(i, 0);// Columna "ID"
                 double precio = (double) modelo.getValueAt(i, 2);// Columna "Precio"
@@ -272,11 +347,11 @@ public class Carga_pedidos extends javax.swing.JInternalFrame {
 
                 Detalle_Pedido detalle= new Detalle_Pedido(producto, pedido, cantidad);
                 detalle_data.guardarDetalle(detalle);
-                jButton_Cargar_detalle.setEnabled(false);
-                jButton_CrearPedido.setEnabled(true);                                        
+                jButton_Cargar_detalle.setEnabled(true);
+                jButton_CrearPedido.setEnabled(false);   
+                jButton_CerraPedido.setEnabled(true);
                 }
             }
-        limpiarCampos();
     }//GEN-LAST:event_jButton_Cargar_detalleActionPerformed
 
     private void jButton_CrearPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_CrearPedidoActionPerformed
@@ -291,6 +366,11 @@ public class Carga_pedidos extends javax.swing.JInternalFrame {
         
             //convertir util a Local
             LocalDate fechaLocal = fechaUtil.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            
+            if (fechaLocal.isBefore(LocalDate.now())) {
+                JOptionPane.showMessageDialog(null, "La fecha no puede ser anterior al día de hoy");
+                return; 
+            }
 
             //convierter Local a java.sql.Date
             java.sql.Date fechaSQL = java.sql.Date.valueOf(fechaLocal);
@@ -302,7 +382,9 @@ public class Carga_pedidos extends javax.swing.JInternalFrame {
             jTextField_PedidoNumero.setText(nuevo_pedido.getId_pedido()+"");
             jTextField_PedidoNumero.setEditable(false);
             jButton_CrearPedido.setEnabled(false);
-            jButton_Cargar_detalle.setEnabled(true);     
+            jButton_Cargar_detalle.setEnabled(true); 
+            
+
 
             mesero_data.cambiarAOcupado(mesero_secMesero.getId_mesero());
             mesa_data.cambiarAOcupada(mesa_selec.getId_mesa());
@@ -330,7 +412,6 @@ public class Carga_pedidos extends javax.swing.JInternalFrame {
     private void jButton_LimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_LimpiarActionPerformed
         // TODO add your handling code here:
         modelo.setRowCount(0);
-        cargarTabla();
     }//GEN-LAST:event_jButton_LimpiarActionPerformed
 
     private void jDateChooser_FechaPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jDateChooser_FechaPropertyChange
@@ -340,9 +421,75 @@ public class Carga_pedidos extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jDateChooser_FechaPropertyChange
 
+    private void jButton_CrearPedidoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_CrearPedidoMouseEntered
+        // TODO add your handling code here:
+        jButton_CrearPedido.setBackground( Color.orange.darker());        
+        
+    }//GEN-LAST:event_jButton_CrearPedidoMouseEntered
+
+    private void jButton_CrearPedidoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_CrearPedidoMouseExited
+        // TODO add your handling code here:
+        jButton_CrearPedido.setBackground(color);
+    }//GEN-LAST:event_jButton_CrearPedidoMouseExited
+
+    private void jButton_LimpiarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_LimpiarMouseEntered
+        // TODO add your handling code here:
+        jButton_Limpiar.setBackground( Color.orange.darker());
+    }//GEN-LAST:event_jButton_LimpiarMouseEntered
+
+    private void jButton_Cargar_detalleMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_Cargar_detalleMouseEntered
+        // TODO add your handling code here:
+        jButton_Cargar_detalle.setBackground( Color.orange.darker());
+    }//GEN-LAST:event_jButton_Cargar_detalleMouseEntered
+
+    private void jButton_SalirMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_SalirMouseEntered
+        // TODO add your handling code here:
+        jButton_Salir.setBackground( Color.red.darker());
+    }//GEN-LAST:event_jButton_SalirMouseEntered
+
+    private void jButton_LimpiarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_LimpiarMouseExited
+        // TODO add your handling code here:
+        jButton_Limpiar.setBackground(color);
+    }//GEN-LAST:event_jButton_LimpiarMouseExited
+
+    private void jButton_Cargar_detalleMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_Cargar_detalleMouseExited
+        // TODO add your handling code here:
+        jButton_Cargar_detalle.setBackground(color);
+    }//GEN-LAST:event_jButton_Cargar_detalleMouseExited
+
+    private void jButton_SalirMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_SalirMouseExited
+        // TODO add your handling code here:
+        jButton_Salir.setBackground(color);
+    }//GEN-LAST:event_jButton_SalirMouseExited
+
+    private void jTextField_BuscarPorNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_BuscarPorNombreKeyReleased
+        // TODO add your handling code here:
+        cargarTabla();
+    }//GEN-LAST:event_jTextField_BuscarPorNombreKeyReleased
+
+    private void jButton_CerraPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_CerraPedidoActionPerformed
+        // TODO add your handling code here:
+        jButton_Cargar_detalle.setEnabled(false);
+        jButton_CrearPedido.setEnabled(true);  
+        limpiarCampos(); 
+        modelo.setRowCount(0);
+        jButton_CerraPedido.setEnabled(false);
+    }//GEN-LAST:event_jButton_CerraPedidoActionPerformed
+
+    private void jButton_CerraPedidoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_CerraPedidoMouseEntered
+        // TODO add your handling code here:
+        jButton_CerraPedido.setBackground( Color.GREEN.darker());
+    }//GEN-LAST:event_jButton_CerraPedidoMouseEntered
+
+    private void jButton_CerraPedidoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_CerraPedidoMouseExited
+        // TODO add your handling code here:
+         jButton_CerraPedido.setBackground(color);
+    }//GEN-LAST:event_jButton_CerraPedidoMouseExited
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton_Cargar_detalle;
+    private javax.swing.JButton jButton_CerraPedido;
     private javax.swing.JButton jButton_CrearPedido;
     private javax.swing.JButton jButton_Limpiar;
     private javax.swing.JButton jButton_Salir;
@@ -356,7 +503,8 @@ public class Carga_pedidos extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel_Mesero;
     private javax.swing.JLabel jLabel_Pedido;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable_Pedido;
+    private javax.swing.JTable jTable_Productos;
+    private javax.swing.JTextField jTextField_BuscarPorNombre;
     private javax.swing.JTextField jTextField_PedidoNumero;
     // End of variables declaration//GEN-END:variables
     
@@ -372,24 +520,36 @@ public class Carga_pedidos extends javax.swing.JInternalFrame {
         }
     }
     
-    private void armarTabla(){
-        ArrayList<Object> cabecera = new ArrayList<>();
-        cabecera.add("ID");
-        cabecera.add("Producto");
-        cabecera.add("Precio");
-        cabecera.add("Cantidad");
+    private void armarCabecera(){
+        modelo.addColumn("ID");
+        modelo.addColumn("Producto");
+        modelo.addColumn("Precio");
+        modelo.addColumn("Cantidad");
         
-        for (Object object : cabecera) {
-            modelo.addColumn(object);
-        }
-        jTable_Pedido.setModel(modelo);
+        jTable_Productos.setModel(modelo);
     }
+        
     
     private void cargarTabla(){
         lista_producto = produ_data.listarProductos();
         
+        borrarFilas();
         for (Producto produ : lista_producto) {
-            modelo.addRow(new Object[] {produ.getId_producto(), produ.getNombre(), produ.getPrecio_unitario()});
+            if (produ.getNombre().startsWith(jTextField_BuscarPorNombre.getText())) {
+                modelo.addRow(new Object[]{
+                    produ.getId_producto(),
+                    produ.getNombre(),
+                    produ.getPrecio_unitario()                    
+                });
+            }            
+        }
+    }
+    
+    private void borrarFilas(){
+        int cantidad_filas = jTable_Productos.getRowCount()-1;
+        
+        for (; cantidad_filas >= 0; cantidad_filas--) {
+            modelo.removeRow(cantidad_filas);
         }
     }
     
@@ -397,5 +557,6 @@ public class Carga_pedidos extends javax.swing.JInternalFrame {
         jTextField_PedidoNumero.setText("");
         modelo.setRowCount(0);
         cargarTabla();
-    } 
+        jTextField_BuscarPorNombre.setText("");
+    }  
 }

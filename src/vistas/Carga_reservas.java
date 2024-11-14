@@ -25,11 +25,8 @@ import javax.swing.table.DefaultTableModel;
 public class Carga_reservas extends javax.swing.JInternalFrame {
     private MesaData mesaData;
     private ReservaData reserData = new ReservaData();
-   
-    private List<Reserva> reservas;
     private DefaultTableModel modelo;
     private List<Mesa> listaMesas;
-    private Mesa mesa = new Mesa();
     
     
     
@@ -72,9 +69,11 @@ public class Carga_reservas extends javax.swing.JInternalFrame {
         jComboMinuto = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableMesas = new javax.swing.JTable();
-        jButtonAnular = new javax.swing.JButton();
         jTextFieldCantidadP = new javax.swing.JTextField();
         jButtonCalcularMesas = new javax.swing.JButton();
+
+        setBackground(new java.awt.Color(255, 204, 153));
+        setClosable(true);
 
         jLabel_CargarReservas.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel_CargarReservas.setText("Buscar disponibilidad");
@@ -149,13 +148,6 @@ public class Carga_reservas extends javax.swing.JInternalFrame {
             jTableMesas.getColumnModel().getColumn(0).setResizable(false);
         }
 
-        jButtonAnular.setText("Anular Reserva");
-        jButtonAnular.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonAnularActionPerformed(evt);
-            }
-        });
-
         jTextFieldCantidadP.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldCantidadPActionPerformed(evt);
@@ -174,36 +166,34 @@ public class Carga_reservas extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(117, 117, 117)
                         .addComponent(jLabel_CargarReservas))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(45, 45, 45)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel_SeleccionarCantidad)
                                 .addGap(18, 18, 18)
                                 .addComponent(jTextFieldCantidadP, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel_SeleccionarDia)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel_SeleccionarDia)
+                                .addGap(29, 29, 29)
+                                .addComponent(jDateChooserReserva, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(168, 168, 168)
                         .addComponent(jButtonCalcularMesas))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(67, 67, 67)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jButton_Limpiar)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel_DNI)
-                                        .addComponent(jLabel_Nombre)))
+                                .addGap(28, 28, 28)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel_DNI)
+                                    .addComponent(jLabel_Nombre))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jButton_CrearReserva)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jButtonAnular))
                                     .addComponent(jTextField_DNI, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addComponent(jLabel_DatosCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -214,14 +204,16 @@ public class Carga_reservas extends javax.swing.JInternalFrame {
                                 .addComponent(jComboHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jComboMinuto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(176, 176, 176)
-                        .addComponent(jDateChooserReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(53, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(84, 84, 84)
+                        .addComponent(jButton_Limpiar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton_CrearReserva)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 48, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(54, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -258,8 +250,7 @@ public class Carga_reservas extends javax.swing.JInternalFrame {
                 .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton_Limpiar)
-                    .addComponent(jButton_CrearReserva)
-                    .addComponent(jButtonAnular))
+                    .addComponent(jButton_CrearReserva))
                 .addGap(15, 15, 15))
         );
 
@@ -279,16 +270,17 @@ public class Carga_reservas extends javax.swing.JInternalFrame {
         int hora = Integer.parseInt(horaSeleccionada);
         int minuto = Integer.parseInt(minutoSeleccionado);
         LocalTime tiempo = LocalTime.of(hora, minuto);
+        
        
     
         
         
         // Buscar la mesa seleccionada
             int[] filasSelec = jTableMesas.getSelectedRows();
-        if (filasSelec.length > 0) { // Verifica si se seleccionaron mesas
+            if (filasSelec.length > 0) { // Verifica si se seleccionaron mesas
             for (int fila : filasSelec) {
-                int idMesa = (int) modelo.getValueAt(fila, 1); // Aquí asumes que la columna 3 tiene el idMesa
-                Mesa mesa = mesaData.buscarMesaPorID(idMesa);  // Suponiendo que mesaData tiene este método
+                int idMesa = (int) modelo.getValueAt(fila, 1); // 
+                Mesa mesa = mesaData.buscarMesaPorID(idMesa);  
                 if (mesa != null) {
                     // Crear la reserva para cada mesa seleccionada
                    Reserva nuevaReserva = new Reserva(mesa, nombre, dni, fecha2, tiempo, true);
@@ -297,7 +289,7 @@ public class Carga_reservas extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(this, "Mesa no encontrada para el id " + idMesa, "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
-            JOptionPane.showMessageDialog(this, "Reservas creadas con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            
         } else {
             JOptionPane.showMessageDialog(this, "Debe seleccionar al menos una mesa", "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -310,6 +302,8 @@ public class Carga_reservas extends javax.swing.JInternalFrame {
 
     private void jButton_LimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_LimpiarActionPerformed
         limpiarCampos();
+        borrarFila();
+        
     }//GEN-LAST:event_jButton_LimpiarActionPerformed
 
     private void jTextField_NombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_NombreActionPerformed
@@ -319,10 +313,6 @@ public class Carga_reservas extends javax.swing.JInternalFrame {
     private void jTextField_DNIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_DNIActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField_DNIActionPerformed
-
-    private void jButtonAnularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnularActionPerformed
-        // TODO add your handling code here
-    }//GEN-LAST:event_jButtonAnularActionPerformed
 
     private void jComboMinutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboMinutoActionPerformed
         // TODO add your handling code here:
@@ -345,7 +335,7 @@ public class Carga_reservas extends javax.swing.JInternalFrame {
        
         jTextField_Nombre.setText("");
         jTextField_DNI.setText("");
-        
+        jTextFieldCantidadP.setText("");
         jDateChooserReserva.setDate(new java.util.Date());
     }
         
@@ -395,12 +385,12 @@ public class Carga_reservas extends javax.swing.JInternalFrame {
             }
         }
 
-        // Si encontramos mesas suficientes, las agregamos directamente a la tabla
+        // Si encontramos mesas las agregamos directamente a la tabla
         for (Mesa mesa : mesasSuficientes) {
             modelo.addRow(new Object[] { mesa.getId_mesa(),  mesa.getNumero(), mesa.getCapacidad()});
         }
 
-        // Si no encontramos mesas suficientes, mostrar un mensaje
+        // Si no encontramos mesas
         if (mesasSuficientes.isEmpty()) {
             JOptionPane.showMessageDialog(this, "No se encontraron mesas disponibles para la cantidad de personas solicitada.");
         }
@@ -438,7 +428,6 @@ public class Carga_reservas extends javax.swing.JInternalFrame {
         
         
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonAnular;
     private javax.swing.JButton jButtonCalcularMesas;
     private javax.swing.JButton jButton_CrearReserva;
     private javax.swing.JButton jButton_Limpiar;

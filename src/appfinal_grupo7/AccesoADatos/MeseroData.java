@@ -212,7 +212,7 @@ public class MeseroData {
         }        
     }    
    
-    //CObnra el pedido y libera mesero y mesa (estado 0)
+    //Cobra el pedido y libera mesero y mesa (estado 0)
     public double cobrarPedido(int id) {
         double total;
         int num_mesa;
@@ -231,5 +231,23 @@ public class MeseroData {
         pedido.liberarPedido(id);
         
         return total;
-    }    
+    }   
+    
+    public void eliminarPedido(int id) {
+        double total;
+        int num_mesa;
+        int num_mesero;
+        
+        MeseroData mesero = new MeseroData();
+        PedidoData pedido = new PedidoData();
+        Detalle_PedidoData detalle = new Detalle_PedidoData();
+        MesaData mesa = new MesaData();
+        
+        num_mesa = pedido.obtenerMesa(id);
+        num_mesero = pedido.obtenerMesero(id);
+        mesa.cambiarALibre(num_mesa); //cambia la mesa a libre
+        mesero.cambiarALibre(num_mesero); //cambia mesero a libre  
+        detalle.eliminarDetallesPorPedido(id);
+        pedido.eliminarPedido(id);  
+    }   
 }

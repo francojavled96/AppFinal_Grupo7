@@ -74,6 +74,6 @@ public class Pedido {
     
     @Override
     public String toString(){
-        return "Pedido " + id_pedido + " , mesa " + mesa.getId_mesa();
+        return "Pedido " + id_pedido;
     }    
 }

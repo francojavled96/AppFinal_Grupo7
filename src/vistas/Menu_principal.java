@@ -4,8 +4,12 @@
  */
 package vistas;
 
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.util.HashSet;
 import java.util.Set;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 /**
@@ -32,22 +36,36 @@ public class Menu_principal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        escritorio = new javax.swing.JDesktopPane();
+        ImageIcon icono = new ImageIcon(getClass().getResource("/recursos/fondo.png"));
+        Image fondo = icono.getImage();
+        escritorio = new javax.swing.JDesktopPane(){
+
+            public void paintComponent(Graphics g){
+                g.drawImage(fondo,0,0,getWidth(),getHeight(),this);
+            }
+        };
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu_Pedidos = new javax.swing.JMenu();
         jMenuItem_CrearPedi = new javax.swing.JMenuItem();
         jMenuItem_CobrarPedi = new javax.swing.JMenuItem();
+        jMenuItem_Ganancias = new javax.swing.JMenuItem();
         jMenu_Reservas = new javax.swing.JMenu();
         jMenuItemReservas = new javax.swing.JMenuItem();
+        jMenuItemAnularReservas = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
         setSize(new java.awt.Dimension(450, 650));
+
+        escritorio.setBackground(new java.awt.Color(51, 51, 51));
 
         javax.swing.GroupLayout escritorioLayout = new javax.swing.GroupLayout(escritorio);
         escritorio.setLayout(escritorioLayout);
         escritorioLayout.setHorizontalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 616, Short.MAX_VALUE)
+            .addGap(0, 546, Short.MAX_VALUE)
         );
         escritorioLayout.setVerticalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -77,6 +95,14 @@ public class Menu_principal extends javax.swing.JFrame {
         });
         jMenu_Pedidos.add(jMenuItem_CobrarPedi);
 
+        jMenuItem_Ganancias.setText("Ganancias por día");
+        jMenuItem_Ganancias.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem_GananciasActionPerformed(evt);
+            }
+        });
+        jMenu_Pedidos.add(jMenuItem_Ganancias);
+
         jMenuBar1.add(jMenu_Pedidos);
 
         jMenu_Reservas.setText("Reservas");
@@ -89,7 +115,26 @@ public class Menu_principal extends javax.swing.JFrame {
         });
         jMenu_Reservas.add(jMenuItemReservas);
 
+        jMenuItemAnularReservas.setText("Anular Reservas");
+        jMenuItemAnularReservas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemAnularReservasActionPerformed(evt);
+            }
+        });
+        jMenu_Reservas.add(jMenuItemAnularReservas);
+
+        jMenuItem1.setText("Listar Reservas");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu_Reservas.add(jMenuItem1);
+
         jMenuBar1.add(jMenu_Reservas);
+
+        jMenu1.setText("Mozos");
+        jMenuBar1.add(jMenu1);
 
         setJMenuBar(jMenuBar1);
 
@@ -118,13 +163,17 @@ public class Menu_principal extends javax.swing.JFrame {
         // TODO add your handling code here:
         escritorio.removeAll();
         escritorio.repaint();
+        
         Carga_pedidos pedidos = new Carga_pedidos();
         pedidos.setVisible(true);
+        pedidos.getContentPane().setBackground(Color.darkGray);
         escritorio.add(pedidos);  
         
-        int frameWidth = pedidos.getWidth()+20;
-        int frameHeight = pedidos.getHeight()+40;
-        setSize(frameWidth, frameHeight); // Ajusta el tamaño del JFrame
+        try {
+            pedidos.setMaximum(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         setLocationRelativeTo(null);
     }//GEN-LAST:event_jMenuItem_CrearPediActionPerformed
@@ -133,13 +182,16 @@ public class Menu_principal extends javax.swing.JFrame {
         // TODO add your handling code here:
         escritorio.removeAll();
         escritorio.repaint();
-        Modificar_Pedido pedidos = new Modificar_Pedido();
+        Procesar_Pedido pedidos = new Procesar_Pedido();
         pedidos.setVisible(true);
+        pedidos.getContentPane().setBackground(Color.darkGray);
         escritorio.add(pedidos);  
         
-        int frameWidth = pedidos.getWidth()+20;
-        int frameHeight = pedidos.getHeight()+40;
-        setSize(frameWidth, frameHeight); // Ajusta el tamaño del JFrame
+        try {
+            pedidos.setMaximum(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         setLocationRelativeTo(null);
     }//GEN-LAST:event_jMenuItem_CobrarPediActionPerformed
@@ -153,6 +205,43 @@ public class Menu_principal extends javax.swing.JFrame {
         escritorio.moveToFront(reservas);  
         
     }//GEN-LAST:event_jMenuItemReservasActionPerformed
+
+    private void jMenuItem_GananciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_GananciasActionPerformed
+        // TODO add your handling code here:
+        escritorio.removeAll();
+        escritorio.repaint();
+        Ganancias ganacias = new Ganancias();
+        ganacias.setVisible(true);
+        ganacias.getContentPane().setBackground(Color.darkGray);
+        escritorio.add(ganacias);
+        escritorio.moveToFront(ganacias);  
+        
+        try {
+            ganacias.setMaximum(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        setLocationRelativeTo(null);
+    }//GEN-LAST:event_jMenuItem_GananciasActionPerformed
+
+    private void jMenuItemAnularReservasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAnularReservasActionPerformed
+        escritorio.removeAll();
+        escritorio.repaint();
+        Modificar_Eliminar_Reserva reservas = new Modificar_Eliminar_Reserva();
+        reservas.setVisible(true);
+        escritorio.add(reservas);
+        escritorio.moveToFront(reservas);  
+    }//GEN-LAST:event_jMenuItemAnularReservasActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        escritorio.removeAll();
+        escritorio.repaint();
+        Listar_Reservas reservas = new Listar_Reservas();
+        reservas.setVisible(true);
+        escritorio.add(reservas);
+        escritorio.moveToFront(reservas);  
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -191,10 +280,14 @@ public class Menu_principal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane escritorio;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItemAnularReservas;
     private javax.swing.JMenuItem jMenuItemReservas;
     private javax.swing.JMenuItem jMenuItem_CobrarPedi;
     private javax.swing.JMenuItem jMenuItem_CrearPedi;
+    private javax.swing.JMenuItem jMenuItem_Ganancias;
     private javax.swing.JMenu jMenu_Pedidos;
     private javax.swing.JMenu jMenu_Reservas;
     // End of variables declaration//GEN-END:variables
