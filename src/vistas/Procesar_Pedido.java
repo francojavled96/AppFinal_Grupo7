@@ -19,7 +19,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author bruno
  */
-public class Modificar_Pedido extends javax.swing.JInternalFrame {
+public class Procesar_Pedido extends javax.swing.JInternalFrame {
     
     private DefaultTableModel modelo;
     private ArrayList<Detalle_Pedido> lista_detalle;
@@ -32,7 +32,7 @@ public class Modificar_Pedido extends javax.swing.JInternalFrame {
 
 
     /** Creates new form Modificar_Pedido */
-    public Modificar_Pedido() {
+    public Procesar_Pedido() {
         initComponents();
         modelo = new DefaultTableModel();
         detalle = new Detalle_PedidoData();   

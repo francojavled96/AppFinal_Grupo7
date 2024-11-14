@@ -131,8 +131,8 @@ public class Menu_principal extends javax.swing.JFrame {
         pedidos.setVisible(true);
         escritorio.add(pedidos);  
         
-        int frameWidth = pedidos.getWidth()+20;
-        int frameHeight = pedidos.getHeight()+40;
+        int frameWidth = pedidos.getWidth()+40;
+        int frameHeight = pedidos.getHeight()+60;
         setSize(frameWidth, frameHeight); // Ajusta el tamaño del JFrame
 
         setLocationRelativeTo(null);
@@ -142,12 +142,12 @@ public class Menu_principal extends javax.swing.JFrame {
         // TODO add your handling code here:
         escritorio.removeAll();
         escritorio.repaint();
-        Modificar_Pedido pedidos = new Modificar_Pedido();
+        Procesar_Pedido pedidos = new Procesar_Pedido();
         pedidos.setVisible(true);
         escritorio.add(pedidos);  
         
-        int frameWidth = pedidos.getWidth()+20;
-        int frameHeight = pedidos.getHeight()+40;
+        int frameWidth = pedidos.getWidth()+40;
+        int frameHeight = pedidos.getHeight()+60;
         setSize(frameWidth, frameHeight); // Ajusta el tamaño del JFrame
 
         setLocationRelativeTo(null);

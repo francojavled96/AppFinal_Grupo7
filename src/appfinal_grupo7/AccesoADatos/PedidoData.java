@@ -189,7 +189,7 @@ public class PedidoData {
         }        
     }
     
-    //obtener la ganancia de todo un día
+    //obtener la ganancia de todo un día NO ME FUNCIONA
     public double gananciaTotalPorFecha(LocalDate fecha) {
     double total = 0;
     String sql = "SELECT SUM(dp.cantidad * pr.precio_unitario) AS total FROM pedido p"
@@ -207,5 +207,50 @@ public class PedidoData {
             JOptionPane.showMessageDialog(null, "Error al calcular la ganancia: " + ex.getMessage());
         }    
     return total;
+    }
+    
+    public List <Pedido> buscarPedidoPorFecha(LocalDate fecha){
+        ArrayList<Pedido> lista = new ArrayList<>();
+        String sql = "SELECT id_pedido, id_mesa ,id_mesero FROM pedido WHERE fecha = ?";
+        Pedido pedido = null;
+        MesaData mesadata;
+        MeseroData meserodata;
+        
+        try {
+            PreparedStatement ps=con.prepareStatement(sql);
+            ps.setDate(1, java.sql.Date.valueOf(fecha));
+            ResultSet rs=ps.executeQuery();
+            while(rs.next()){
+                pedido=new Pedido();
+                mesadata = new MesaData();
+                meserodata = new MeseroData();
+                pedido.setId_pedido(rs.getInt("id_pedido"));
+                Mesa mesa = mesadata.buscarMesaPorID(rs.getInt("id_mesa"));
+                Mesero mesero = meserodata.buscarMeseroPorID(rs.getInt("id_mesero"));
+                pedido.setMesa(mesa);
+                pedido.setMesero(mesero);
+                
+                lista.add(pedido);
+            }              
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a a la tabla detalle_pedido");
+        }
+        if (lista.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "No se encontró detalle para el pedido proporcionado");
+        }
+        return lista;
+    }    
+    
+    public double calcularTotalPorFecha(LocalDate fecha) {
+        double total_fecha = 0.0;
+        Detalle_PedidoData deta = new Detalle_PedidoData();
+
+        List<Pedido> pedidos = buscarPedidoPorFecha(fecha);  
+
+        for (Pedido pedido : pedidos) {
+            total_fecha += deta.calcularTotalDetalle(pedido.getId_pedido());
+        }    
+
+        return total_fecha;
     }
 }
