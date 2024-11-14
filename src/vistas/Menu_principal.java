@@ -4,6 +4,7 @@
  */
 package vistas;
 
+import java.awt.Color;
 import java.util.HashSet;
 import java.util.Set;
 import javax.swing.JFrame;
@@ -44,11 +45,13 @@ public class Menu_principal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setSize(new java.awt.Dimension(450, 650));
 
+        escritorio.setBackground(new java.awt.Color(51, 51, 51));
+
         javax.swing.GroupLayout escritorioLayout = new javax.swing.GroupLayout(escritorio);
         escritorio.setLayout(escritorioLayout);
         escritorioLayout.setHorizontalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 616, Short.MAX_VALUE)
+            .addGap(0, 400, Short.MAX_VALUE)
         );
         escritorioLayout.setVerticalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -127,13 +130,17 @@ public class Menu_principal extends javax.swing.JFrame {
         // TODO add your handling code here:
         escritorio.removeAll();
         escritorio.repaint();
+        
         Carga_pedidos pedidos = new Carga_pedidos();
         pedidos.setVisible(true);
+        pedidos.getContentPane().setBackground(Color.darkGray);
         escritorio.add(pedidos);  
         
-        int frameWidth = pedidos.getWidth()+40;
-        int frameHeight = pedidos.getHeight()+60;
-        setSize(frameWidth, frameHeight); // Ajusta el tamaño del JFrame
+        try {
+            pedidos.setMaximum(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         setLocationRelativeTo(null);
     }//GEN-LAST:event_jMenuItem_CrearPediActionPerformed
@@ -144,11 +151,14 @@ public class Menu_principal extends javax.swing.JFrame {
         escritorio.repaint();
         Procesar_Pedido pedidos = new Procesar_Pedido();
         pedidos.setVisible(true);
+        pedidos.getContentPane().setBackground(Color.darkGray);
         escritorio.add(pedidos);  
         
-        int frameWidth = pedidos.getWidth()+40;
-        int frameHeight = pedidos.getHeight()+60;
-        setSize(frameWidth, frameHeight); // Ajusta el tamaño del JFrame
+        try {
+            pedidos.setMaximum(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         setLocationRelativeTo(null);
     }//GEN-LAST:event_jMenuItem_CobrarPediActionPerformed
@@ -167,10 +177,19 @@ public class Menu_principal extends javax.swing.JFrame {
         // TODO add your handling code here:
         escritorio.removeAll();
         escritorio.repaint();
-        Ganancias reservas = new Ganancias();
-        reservas.setVisible(true);
-        escritorio.add(reservas);
-        escritorio.moveToFront(reservas);  
+        Ganancias ganacias = new Ganancias();
+        ganacias.setVisible(true);
+        ganacias.getContentPane().setBackground(Color.darkGray);
+        escritorio.add(ganacias);
+        escritorio.moveToFront(ganacias);  
+        
+        try {
+            ganacias.setMaximum(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        setLocationRelativeTo(null);
     }//GEN-LAST:event_jMenuItem_GananciasActionPerformed
 
     /**
