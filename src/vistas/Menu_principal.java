@@ -37,6 +37,7 @@ public class Menu_principal extends javax.swing.JFrame {
         jMenu_Pedidos = new javax.swing.JMenu();
         jMenuItem_CrearPedi = new javax.swing.JMenuItem();
         jMenuItem_CobrarPedi = new javax.swing.JMenuItem();
+        jMenuItem_Ganancias = new javax.swing.JMenuItem();
         jMenu_Reservas = new javax.swing.JMenu();
         jMenuItemReservas = new javax.swing.JMenuItem();
 
@@ -76,6 +77,14 @@ public class Menu_principal extends javax.swing.JFrame {
             }
         });
         jMenu_Pedidos.add(jMenuItem_CobrarPedi);
+
+        jMenuItem_Ganancias.setText("Ganancias por día");
+        jMenuItem_Ganancias.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem_GananciasActionPerformed(evt);
+            }
+        });
+        jMenu_Pedidos.add(jMenuItem_Ganancias);
 
         jMenuBar1.add(jMenu_Pedidos);
 
@@ -154,6 +163,16 @@ public class Menu_principal extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jMenuItemReservasActionPerformed
 
+    private void jMenuItem_GananciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_GananciasActionPerformed
+        // TODO add your handling code here:
+        escritorio.removeAll();
+        escritorio.repaint();
+        Ganancias reservas = new Ganancias();
+        reservas.setVisible(true);
+        escritorio.add(reservas);
+        escritorio.moveToFront(reservas);  
+    }//GEN-LAST:event_jMenuItem_GananciasActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -195,6 +214,7 @@ public class Menu_principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemReservas;
     private javax.swing.JMenuItem jMenuItem_CobrarPedi;
     private javax.swing.JMenuItem jMenuItem_CrearPedi;
+    private javax.swing.JMenuItem jMenuItem_Ganancias;
     private javax.swing.JMenu jMenu_Pedidos;
     private javax.swing.JMenu jMenu_Reservas;
     // End of variables declaration//GEN-END:variables

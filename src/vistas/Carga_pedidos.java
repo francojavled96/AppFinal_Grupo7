@@ -93,7 +93,7 @@ public class Carga_pedidos extends javax.swing.JInternalFrame {
         jTextField_PedidoNumero = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jDateChooser_Fecha = new com.toedter.calendar.JDateChooser();
-        jButton1 = new javax.swing.JButton();
+        jButton_TotalPorDia = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(350, 640));
 
@@ -174,10 +174,10 @@ public class Carga_pedidos extends javax.swing.JInternalFrame {
             }
         });
 
-        jButton1.setText("Totaldía");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButton_TotalPorDia.setText("Totaldía");
+        jButton_TotalPorDia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButton_TotalPorDiaActionPerformed(evt);
             }
         });
 
@@ -214,7 +214,7 @@ public class Carga_pedidos extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jButton_Salir, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton1))
+                                .addComponent(jButton_TotalPorDia))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel_Mesa)
@@ -259,7 +259,7 @@ public class Carga_pedidos extends javax.swing.JInternalFrame {
                     .addComponent(jButton_Limpiar)
                     .addComponent(jButton_Cargar_detalle)
                     .addComponent(jButton_Salir)
-                    .addComponent(jButton1))
+                    .addComponent(jButton_TotalPorDia))
                 .addContainerGap(57, Short.MAX_VALUE))
         );
 
@@ -351,25 +351,26 @@ public class Carga_pedidos extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jDateChooser_FechaPropertyChange
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButton_TotalPorDiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_TotalPorDiaActionPerformed
         // TODO add your handling code here:
         java.util.Date fechaUtil = jDateChooser_Fecha.getDate();
 
         if (fechaUtil != null) {
             LocalDate fechaLocal = fechaUtil.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            System.out.println(fechaLocal);
             System.out.println(pedi_data.gananciaTotalPorFecha(fechaLocal));
         } else {
             JOptionPane.showMessageDialog(null, "Introduzca una fecha válida.");
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jButton_TotalPorDiaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton_Cargar_detalle;
     private javax.swing.JButton jButton_CrearPedido;
     private javax.swing.JButton jButton_Limpiar;
     private javax.swing.JButton jButton_Salir;
+    private javax.swing.JButton jButton_TotalPorDia;
     private javax.swing.JComboBox<Mesa> jComboBox_Mesa;
     private javax.swing.JComboBox<Mesero> jComboBox_Mesero;
     private com.toedter.calendar.JDateChooser jDateChooser_Fecha;

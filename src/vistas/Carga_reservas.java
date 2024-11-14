@@ -67,7 +67,6 @@ public class Carga_reservas extends javax.swing.JInternalFrame {
         jTextField_DNI = new javax.swing.JTextField();
         jLabel_SeleccionarDia = new javax.swing.JLabel();
         jLabel_SeleccionarCantidad = new javax.swing.JLabel();
-        jDateChooserReserva = new com.toedter.calendar.JDateChooser();
         jComboHora = new javax.swing.JComboBox<>();
         jComboMinuto = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -213,11 +212,8 @@ public class Carga_reservas extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jComboHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jComboMinuto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(176, 176, 176)
-                        .addComponent(jDateChooserReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(53, Short.MAX_VALUE))
+                                .addComponent(jComboMinuto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(67, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -228,10 +224,8 @@ public class Carga_reservas extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(jLabel_CargarReservas)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel_SeleccionarDia)
-                    .addComponent(jDateChooserReserva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20)
+                .addComponent(jLabel_SeleccionarDia)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel_SeleccionarCantidad)
@@ -444,7 +438,6 @@ public class Carga_reservas extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButton_Limpiar;
     private javax.swing.JComboBox<String> jComboHora;
     private javax.swing.JComboBox<String> jComboMinuto;
-    private com.toedter.calendar.JDateChooser jDateChooserReserva;
     private javax.swing.JLabel jLabel_CargarReservas;
     private javax.swing.JLabel jLabel_DNI;
     private javax.swing.JLabel jLabel_DatosCliente;
