@@ -317,7 +317,7 @@ public class Procesar_Pedido extends javax.swing.JInternalFrame {
 
         if (respuesta == JOptionPane.YES_OPTION) {
             detalle.eliminarDetallesPorPedido(id_pedido);
-            pedido.eliminarPedido(id_pedido);
+            mesero.eliminarPedido(id_pedido);
         } else if (respuesta == JOptionPane.NO_OPTION) {
             JOptionPane.showMessageDialog(null, "Aaaah arrugaste");
         }        
@@ -407,6 +407,12 @@ public class Procesar_Pedido extends javax.swing.JInternalFrame {
     private void cargarTabla(int id_pedido){                
         lista_detalle= (ArrayList<Detalle_Pedido>) detalle.buscarDetallePorPedido(id_pedido);
         limpiarTabla();
+        
+        if (pedido.buscarPedidoPorID(id_pedido) == null) {
+            JOptionPane.showMessageDialog(null, "Este pedido se eliminó.");
+            jButton_Cobrar.setEnabled(false); 
+            jButton_Cancelar.setEnabled(false);
+        }
         
         
         if (pedido.buscarPedidoPorID(id_pedido).getEstado() == 0) {

@@ -53,6 +53,7 @@ public class Menu_principal extends javax.swing.JFrame {
         jMenuItemReservas = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
         setSize(new java.awt.Dimension(450, 650));
 
         escritorio.setBackground(new java.awt.Color(51, 51, 51));

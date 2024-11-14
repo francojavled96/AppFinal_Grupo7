@@ -182,7 +182,7 @@ public class PedidoData {
             int actualizado = ps.executeUpdate();                       
             
             if (actualizado == 1) {
-                JOptionPane.showMessageDialog(null, "Estado modificado");
+                JOptionPane.showMessageDialog(null, "Estado del pedido modificado");
             }            
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla pedido");
@@ -252,5 +252,6 @@ public class PedidoData {
         }    
 
         return total_fecha;
-    }
+}  
+    
 }

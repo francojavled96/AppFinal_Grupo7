@@ -70,7 +70,6 @@ public class ProductoData {
            } catch (SQLException ex) {
             System.out.println("Error al eliminar producto ");
         }
-    
     }
     
     public ArrayList<Producto> listarProductos(){
