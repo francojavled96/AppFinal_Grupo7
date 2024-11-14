@@ -285,13 +285,14 @@ public class Carga_pedidos extends javax.swing.JInternalFrame {
         Mesero mesero_secMesero = (Mesero) jComboBox_Mesero.getSelectedItem();
         
         if (jDateChooser_Fecha.getDate() != null) {    
-            // Obtener la fecha seleccionada (java.util.Date)
+            
+            //obtener fecha (java.util.Date)
             java.util.Date fechaUtil = jDateChooser_Fecha.getDate();
         
-            // Convertir java.util.Date a LocalDate
+            //convertir util a Local
             LocalDate fechaLocal = fechaUtil.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
-            // Convertir LocalDate a java.sql.Date
+            //convierter Local a java.sql.Date
             java.sql.Date fechaSQL = java.sql.Date.valueOf(fechaLocal);
             
             Pedido nuevo_pedido = new Pedido(mesa_selec, mesero_secMesero, 1, fechaLocal);
@@ -315,8 +316,6 @@ public class Carga_pedidos extends javax.swing.JInternalFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Debe ingresar una fecha");            
         }
-        
-        
     }//GEN-LAST:event_jButton_CrearPedidoActionPerformed
 
     private void jButton_SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_SalirActionPerformed
