@@ -50,7 +50,7 @@ public class MeseroData {
     
     public void modificarMesero(Mesero mesero){
         
-        String sql = "UPDATE mesero SET nombre = ?, apellido = ? WHERE id_Mesero = ?";   
+        String sql = "UPDATE mesero SET nombre = ?, apellido = ? WHERE id_mesero = ?";   
         
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -68,9 +68,9 @@ public class MeseroData {
         }        
     }
     
-    /*public void eliminarMesero(int id){
+    public void eliminarMesero(int id){
         
-        String sql = "UPDATE mesero SET estado = 0 WHERE id_Mesero = ?"; 
+        String sql = "DELETE FROM mesero WHERE id_mesero = ?"; 
         
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -78,12 +78,12 @@ public class MeseroData {
             int actualizado = ps.executeUpdate();
             
             if (actualizado == 1) {
-               JOptionPane.showMessageDialog(null, "Mesero dado de baja");
+               JOptionPane.showMessageDialog(null, "Mesero echado (a su casa papi)");
             }            
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla mesero");
         }        
-    }*/
+    }
     
     //Busca mesero según su ID
     public Mesero buscarMeseroPorID(int id){

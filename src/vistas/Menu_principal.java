@@ -54,6 +54,8 @@ public class Menu_principal extends javax.swing.JFrame {
         jMenuItemAnularReservas = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
+        jMenuItemCargaMozo = new javax.swing.JMenuItem();
+        jMenuItemEliminarMozo = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -134,6 +136,23 @@ public class Menu_principal extends javax.swing.JFrame {
         jMenuBar1.add(jMenu_Reservas);
 
         jMenu1.setText("Mozos");
+
+        jMenuItemCargaMozo.setText("Cargar Mozo");
+        jMenuItemCargaMozo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemCargaMozoActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItemCargaMozo);
+
+        jMenuItemEliminarMozo.setText("Eliminar/Listar Mozos");
+        jMenuItemEliminarMozo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemEliminarMozoActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItemEliminarMozo);
+
         jMenuBar1.add(jMenu1);
 
         setJMenuBar(jMenuBar1);
@@ -243,6 +262,24 @@ public class Menu_principal extends javax.swing.JFrame {
         escritorio.moveToFront(reservas);  
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
+    private void jMenuItemCargaMozoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCargaMozoActionPerformed
+        escritorio.removeAll();
+        escritorio.repaint();
+        Cargar_Mozo cargaMozo = new Cargar_Mozo();
+        cargaMozo.setVisible(true);
+        escritorio.add(cargaMozo);
+        escritorio.moveToFront(cargaMozo);  
+    }//GEN-LAST:event_jMenuItemCargaMozoActionPerformed
+
+    private void jMenuItemEliminarMozoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemEliminarMozoActionPerformed
+        escritorio.removeAll();
+        escritorio.repaint();
+        Eliminar_Mozo eliminar_Mozo = new Eliminar_Mozo();
+        eliminar_Mozo.setVisible(true);
+        escritorio.add(eliminar_Mozo);
+        escritorio.moveToFront(eliminar_Mozo);  
+    }//GEN-LAST:event_jMenuItemEliminarMozoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -284,6 +321,8 @@ public class Menu_principal extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItemAnularReservas;
+    private javax.swing.JMenuItem jMenuItemCargaMozo;
+    private javax.swing.JMenuItem jMenuItemEliminarMozo;
     private javax.swing.JMenuItem jMenuItemReservas;
     private javax.swing.JMenuItem jMenuItem_CobrarPedi;
     private javax.swing.JMenuItem jMenuItem_CrearPedi;
